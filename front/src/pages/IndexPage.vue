@@ -1,11 +1,15 @@
 <template>
-  <q-page class="flex flex-center"> PRIVET </q-page>
+  <q-page class="flex flex-center bg-grey-10">
+    <canvas ref="canvas" />
+  </q-page>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { ref, onMounted } from "vue";
 
-export default defineComponent({
-  name: "IndexPage",
+const canvas = ref(null);
+
+onMounted(() => {
+  const c = canvas.value.getContext("2d");
 });
 </script>
