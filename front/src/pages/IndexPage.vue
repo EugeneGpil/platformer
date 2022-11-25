@@ -51,6 +51,15 @@ onMounted(() => {
   const player = new Player({ x: 100, y: 150 });
   const player2 = new Player({ x: 200, y: 200 });
 
+  const keys = {
+    a: {
+      pressed: false,
+    },
+    d: {
+      pressed: false,
+    },
+  };
+
   const animate = () => {
     window.requestAnimationFrame(animate);
 
@@ -59,8 +68,41 @@ onMounted(() => {
 
     player.update();
     player2.update();
+
+    player.velocity.x = 0;
+    if (keys.a.pressed && !keys.d.pressed) {
+      player.velocity.x = -5;
+    }
+    if (!keys.a.pressed && keys.d.pressed) {
+      player.velocity.x = 5;
+    }
   };
 
   animate();
+
+  window.addEventListener("keydown", (event) => {
+    switch (event.code) {
+      case "KeyD":
+        keys.d.pressed = true;
+        break;
+      case "KeyA":
+        keys.a.pressed = true;
+        break;
+      case "Space":
+        player.velocity.y = -10;
+        break;
+    }
+  });
+
+  window.addEventListener("keyup", (event) => {
+    switch (event.code) {
+      case "KeyD":
+        keys.d.pressed = false;
+        break;
+      case "KeyA":
+        keys.a.pressed = false;
+        break;
+    }
+  });
 });
 </script>
