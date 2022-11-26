@@ -6,9 +6,12 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import Sprite from "src/classes/Sprite";
-import Player from "src/classes/Player";
-import globals from "src/classes/consts/globals";
+import Sprite from "src/app/classes/Sprite";
+import Player from "src/app/classes/Player";
+import globals from "src/app/objects/globals";
+import keys from "src/app/objects/keys";
+import addKeydownEventListener from "src/app/functions/addKeydownEventListener";
+import addKeyupEventListener from "src/app/functions/addKeyupEventListener";
 
 const canvas = ref(null);
 globals.canvas = canvas;
@@ -25,17 +28,8 @@ onMounted(() => {
   const c = canvas.value.getContext("2d");
   globals.c = c;
 
-  const player = new Player({ position: { x: 100, y: 150 } });
+  globals.player = new Player({ position: { x: 100, y: 150 } });
   const player2 = new Player({ position: { x: 200, y: 200 } });
-
-  const keys = {
-    a: {
-      pressed: false,
-    },
-    d: {
-      pressed: false,
-    },
-  };
 
   const background = new Sprite({
     position: {
@@ -56,43 +50,21 @@ onMounted(() => {
     c.translate(0, -background.image.height + scaledCanvas.height);
     background.update();
     c.restore();
-    player.update();
+    globals.player.update();
     player2.update();
 
-    player.velocity.x = 0;
+    globals.player.velocity.x = 0;
     if (keys.a.pressed && !keys.d.pressed) {
-      player.velocity.x = -5;
+      globals.player.velocity.x = -5;
     }
     if (!keys.a.pressed && keys.d.pressed) {
-      player.velocity.x = 5;
+      globals.player.velocity.x = 5;
     }
   };
 
   animate();
 
-  window.addEventListener("keydown", (event) => {
-    switch (event.code) {
-      case "KeyD":
-        keys.d.pressed = true;
-        break;
-      case "KeyA":
-        keys.a.pressed = true;
-        break;
-      case "Space":
-        player.velocity.y = -10;
-        break;
-    }
-  });
-
-  window.addEventListener("keyup", (event) => {
-    switch (event.code) {
-      case "KeyD":
-        keys.d.pressed = false;
-        break;
-      case "KeyA":
-        keys.a.pressed = false;
-        break;
-    }
-  });
+  addKeydownEventListener(window);
+  addKeyupEventListener(window);
 });
 </script>

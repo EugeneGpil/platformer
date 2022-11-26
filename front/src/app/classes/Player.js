@@ -1,4 +1,4 @@
-import globals from "src/classes/consts/globals";
+import globals from "src/app/objects/globals";
 
 export default class Player {
   constructor({ position }) {
@@ -33,5 +33,9 @@ export default class Player {
       this.velocity.y = 0;
       this.position.y = globals.canvas.value.height - this.height;
     }
+  }
+
+  jump() {
+    this.velocity.y = -10;
   }
 }

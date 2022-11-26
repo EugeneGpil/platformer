@@ -1,4 +1,4 @@
-import globals from "src/classes/consts/globals";
+import globals from "src/app/objects/globals";
 
 export default class Sprite {
   constructor({ position, imageSrc }) {
