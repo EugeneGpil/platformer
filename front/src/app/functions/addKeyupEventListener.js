@@ -4,10 +4,10 @@ export default (window) => {
   window.addEventListener("keyup", (event) => {
     switch (event.code) {
       case "KeyD":
-        globals.keys.d.pressed = false;
+        globals.keys.unPress("d");
         break;
       case "KeyA":
-        globals.keys.a.pressed = false;
+        globals.keys.unPress("a");
         break;
     }
   });

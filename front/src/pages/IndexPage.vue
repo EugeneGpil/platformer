@@ -12,6 +12,7 @@ import globals from "src/app/objects/globals";
 import keys from "src/app/objects/keys";
 import addKeydownEventListener from "src/app/functions/addKeydownEventListener";
 import addKeyupEventListener from "src/app/functions/addKeyupEventListener";
+import reactOnKeyboard from "src/app/functions/reactOnKeyboard";
 
 const canvas = ref(null);
 globals.canvas = canvas;
@@ -53,13 +54,7 @@ onMounted(() => {
     globals.player.update();
     player2.update();
 
-    globals.player.velocity.x = 0;
-    if (keys.a.pressed && !keys.d.pressed) {
-      globals.player.velocity.x = -5;
-    }
-    if (!keys.a.pressed && keys.d.pressed) {
-      globals.player.velocity.x = 5;
-    }
+    reactOnKeyboard();
   };
 
   animate();

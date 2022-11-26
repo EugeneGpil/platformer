@@ -8,4 +8,10 @@ export default {
   press(key) {
     this[key].pressed = true;
   },
+  unPress(key) {
+    this[key].pressed = false;
+  },
+  isPressed(key) {
+    return this[key].pressed;
+  },
 };

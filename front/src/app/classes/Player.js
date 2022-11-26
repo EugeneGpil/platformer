@@ -8,7 +8,6 @@ export default class Player {
     this.height = 100;
     this.width = 100;
   }
-
   draw() {
     globals.c.fillStyle = "red";
     globals.c.fillRect(
@@ -18,7 +17,6 @@ export default class Player {
       this.height
     );
   }
-
   update() {
     this.draw();
     this.position.x += this.velocity.x;
@@ -34,8 +32,16 @@ export default class Player {
       this.position.y = globals.canvas.value.height - this.height;
     }
   }
-
   jump() {
     this.velocity.y = -10;
+  }
+  stop() {
+    this.velocity.x = 0;
+  }
+  moveLeft() {
+    this.velocity.x = -5;
+  }
+  moveRight() {
+    this.velocity.x = 5;
   }
 }
