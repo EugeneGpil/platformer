@@ -6,8 +6,12 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import Sprite from "src/classes/Sprite";
+import Player from "src/classes/Player";
+import globals from "src/classes/consts/globals";
 
 const canvas = ref(null);
+globals.canvas = canvas;
 
 onMounted(() => {
   canvas.value.width = 1024;
@@ -19,61 +23,10 @@ onMounted(() => {
   };
 
   const c = canvas.value.getContext("2d");
+  globals.c = c;
 
-  const gravity = 0.15;
-
-  class Sprite {
-    constructor({ position, imageSrc }) {
-      this.position = position;
-      this.image = new Image();
-      this.image.src = imageSrc;
-    }
-
-    draw() {
-      if (!this.image) {
-        return;
-      }
-      c.drawImage(this.image, this.position.x, this.position.y);
-    }
-
-    update() {
-      this.draw();
-    }
-  }
-
-  class Player {
-    constructor({ x, y }) {
-      this.position = { x, y };
-      this.velocity = { x: 0, y: 1 };
-
-      this.height = 100;
-      this.width = 100;
-    }
-
-    draw() {
-      c.fillStyle = "red";
-      c.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-
-    update() {
-      this.draw();
-      this.position.x += this.velocity.x;
-
-      if (
-        this.position.y + this.height + this.velocity.y <
-        canvas.value.height
-      ) {
-        this.position.y += this.velocity.y;
-        this.velocity.y += gravity;
-      } else {
-        this.velocity.y = 0;
-        this.position.y = canvas.value.height - this.height;
-      }
-    }
-  }
-
-  const player = new Player({ x: 100, y: 150 });
-  const player2 = new Player({ x: 200, y: 200 });
+  const player = new Player({ position: { x: 100, y: 150 } });
+  const player2 = new Player({ position: { x: 200, y: 200 } });
 
   const keys = {
     a: {
