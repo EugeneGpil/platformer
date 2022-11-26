@@ -13,9 +13,33 @@ onMounted(() => {
   canvas.value.width = 1024;
   canvas.value.height = 576;
 
+  const scaledCanvas = {
+    width: canvas.value.width / 4,
+    height: canvas.value.height / 4,
+  };
+
   const c = canvas.value.getContext("2d");
 
   const gravity = 0.15;
+
+  class Sprite {
+    constructor({ position, imageSrc }) {
+      this.position = position;
+      this.image = new Image();
+      this.image.src = imageSrc;
+    }
+
+    draw() {
+      if (!this.image) {
+        return;
+      }
+      c.drawImage(this.image, this.position.x, this.position.y);
+    }
+
+    update() {
+      this.draw();
+    }
+  }
 
   class Player {
     constructor({ x, y }) {
@@ -60,12 +84,25 @@ onMounted(() => {
     },
   };
 
+  const background = new Sprite({
+    position: {
+      x: 0,
+      y: 0,
+    },
+    imageSrc: "img/background.png",
+  });
+
   const animate = () => {
     window.requestAnimationFrame(animate);
 
     c.fillStyle = "#555";
     c.fillRect(0, 0, canvas.value.width, canvas.value.height);
 
+    c.save();
+    c.scale(4, 4);
+    c.translate(0, -background.image.height + scaledCanvas.height);
+    background.update();
+    c.restore();
     player.update();
     player2.update();
 
