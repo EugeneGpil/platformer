@@ -9,7 +9,6 @@ import { ref, onMounted } from "vue";
 import Sprite from "src/app/classes/Sprite";
 import Player from "src/app/classes/Player";
 import globals from "src/app/objects/globals";
-import keys from "src/app/objects/keys";
 import addKeydownEventListener from "src/app/functions/addKeydownEventListener";
 import addKeyupEventListener from "src/app/functions/addKeyupEventListener";
 import reactOnKeyboard from "src/app/functions/reactOnKeyboard";
