@@ -6,65 +6,13 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import Sprite from "src/app/classes/Sprite";
-import Player from "src/app/classes/Player";
 import globals from "src/app/objects/globals";
-import addKeydownEventListener from "src/app/functions/addKeydownEventListener";
-import addKeyupEventListener from "src/app/functions/addKeyupEventListener";
-import reactOnKeyboard from "src/app/functions/reactOnKeyboard";
-import groundArray from "src/app/arrays/groundArray";
-import platformArray from "src/app/arrays/platformArray";
+import init from "src/app/functions/init";
 
 const canvas = ref(null);
 globals.canvas = canvas;
 
 onMounted(() => {
-  canvas.value.width = 1024;
-  canvas.value.height = 576;
-
-  const scaledCanvas = {
-    width: canvas.value.width / 4,
-    height: canvas.value.height / 4,
-  };
-
-  const c = canvas.value.getContext("2d");
-  globals.c = c;
-
-  globals.player = new Player({ position: { x: 100, y: 150 } });
-
-  const background = new Sprite({
-    position: {
-      x: 0,
-      y: 0,
-    },
-    imageSrc: "img/background.png",
-  });
-
-  const animate = () => {
-    window.requestAnimationFrame(animate);
-
-    c.fillStyle = "#555";
-    c.fillRect(0, 0, canvas.value.width, canvas.value.height);
-
-    c.save();
-
-    c.scale(4, 4);
-    c.translate(0, -background.image.height + scaledCanvas.height);
-
-    background.update();
-    groundArray.forEach((groundObj) => groundObj.update());
-    platformArray.forEach((platformArray) => platformArray.update());
-
-    c.restore();
-
-    globals.player.update();
-
-    reactOnKeyboard();
-  };
-
-  animate();
-
-  addKeydownEventListener(window);
-  addKeyupEventListener(window);
+  init()
 });
 </script>
