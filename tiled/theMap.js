@@ -1,3 +1,13 @@
+(function(name,data){
+ if(typeof onTileMapLoaded === 'undefined') {
+  if(typeof TileMaps === 'undefined') TileMaps = {};
+  TileMaps[name] = data;
+ } else {
+  onTileMapLoaded(name,data);
+ }
+ if(typeof module === 'object' && module && module.exports) {
+  module.exports = data;
+ }})("theMap",
 { "compressionlevel":-1,
  "height":27,
  "infinite":false,
@@ -316,4 +326,4 @@
  "type":"map",
  "version":"1.9",
  "width":36
-}
+});
