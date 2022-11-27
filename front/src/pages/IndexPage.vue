@@ -12,6 +12,8 @@ import globals from "src/app/objects/globals";
 import addKeydownEventListener from "src/app/functions/addKeydownEventListener";
 import addKeyupEventListener from "src/app/functions/addKeyupEventListener";
 import reactOnKeyboard from "src/app/functions/reactOnKeyboard";
+import groundArray from "src/app/arrays/groundArray";
+import platformArray from "src/app/arrays/platformArray";
 
 const canvas = ref(null);
 globals.canvas = canvas;
@@ -29,7 +31,6 @@ onMounted(() => {
   globals.c = c;
 
   globals.player = new Player({ position: { x: 100, y: 150 } });
-  const player2 = new Player({ position: { x: 200, y: 200 } });
 
   const background = new Sprite({
     position: {
@@ -46,12 +47,17 @@ onMounted(() => {
     c.fillRect(0, 0, canvas.value.width, canvas.value.height);
 
     c.save();
+
     c.scale(4, 4);
     c.translate(0, -background.image.height + scaledCanvas.height);
+
     background.update();
+    groundArray.forEach((groundObj) => groundObj.update());
+    platformArray.forEach((platformArray) => platformArray.update());
+
     c.restore();
+
     globals.player.update();
-    player2.update();
 
     reactOnKeyboard();
   };
