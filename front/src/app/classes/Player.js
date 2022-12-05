@@ -1,12 +1,14 @@
 import globals from "src/app/objects/globals";
+import allCollisions from "src/app/arrays/collisions/allCollisions";
+import detectCollisions from "src/app/functions/collisions/detectCollisions";
 
 export default class Player {
   constructor({ position }) {
     this.position = position;
     this.velocity = { x: 0, y: 1 };
 
-    this.height = 100;
-    this.width = 100;
+    this.height = 25;
+    this.width = 25;
   }
   draw() {
     globals.c.fillStyle = "red";
@@ -20,16 +22,29 @@ export default class Player {
   update() {
     this.draw();
     this.position.x += this.velocity.x;
+    this.applyGravity();
+    this.checkForVerticalCollisions();
+  }
+  applyGravity() {
+    this.position.y += this.velocity.y;
+    this.velocity.y += globals.gravity;
+  }
+  checkForVerticalCollisions() {
+    for (let collisionBlock of allCollisions) {
+      if (detectCollisions({ obj1: this, obj2: collisionBlock })) {
+        if (this.velocity.y > 0) {
+          this.velocity.y = 0;
+          this.position.y = collisionBlock.position.y - this.height - 0.01;
+          return;
+        }
 
-    if (
-      this.position.y + this.height + this.velocity.y <
-      globals.canvas.value.height
-    ) {
-      this.position.y += this.velocity.y;
-      this.velocity.y += globals.gravity;
-    } else {
-      this.velocity.y = 0;
-      this.position.y = globals.canvas.value.height - this.height;
+        if (this.velocity.y < 0) {
+          this.velocity.y = 0;
+          this.position.y =
+            collisionBlock.position.y + collisionBlock.height + 0.01;
+          return;
+        }
+      }
     }
   }
   jump() {

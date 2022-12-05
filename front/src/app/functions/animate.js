@@ -1,6 +1,5 @@
 import globals from "src/app/objects/globals";
-import groundArray from "src/app/arrays/groundArray";
-import platformArray from "src/app/arrays/platformArray";
+import allCollisions from "src/app/arrays/collisions/allCollisions";
 import reactOnKeyboard from "src/app/functions/keyboard/reactOnKeyboard";
 import animateVars from "src/app/objects/animateVars";
 
@@ -24,14 +23,13 @@ const animate = () => {
   );
 
   animateVars.background.update();
-  groundArray.forEach((groundObj) => groundObj.update());
-  platformArray.forEach((platformArray) => platformArray.update());
-
-  globals.c.restore();
+  allCollisions.forEach((groundObj) => groundObj.update());
 
   globals.player.update();
 
   reactOnKeyboard();
+
+  globals.c.restore();
 };
 
 export default animate;

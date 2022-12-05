@@ -1,4 +1,4 @@
-import data from "../../assets/tiled/theMap.json";
+import data from "assets/tiled/theMap.json";
 import PlatformCollisionBlock from "src/app/classes/collisions/PlatformCollisionBlock";
 
 export default data.layers

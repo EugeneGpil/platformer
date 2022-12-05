@@ -1,4 +1,4 @@
-import data from "../../../assets/tiled/theMap.json";
+import data from "src/assets/tiled/theMap.json";
 import createCollisionClassesMap from "src/app/objects/collisions/createCollisionClassesMap";
 
 export default ({ layerName, className }) =>
