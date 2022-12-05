@@ -6,6 +6,4 @@ export default {
   c: null,
   canvas: null,
   player: null,
-  scaledCanvas: null,
-  background: null,
 };

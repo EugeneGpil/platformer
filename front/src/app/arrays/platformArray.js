@@ -1,7 +1,7 @@
 import data from "../../assets/tiled/theMap.json";
 import PlatformCollisionBlock from "src/app/classes/collisions/PlatformCollisionBlock";
 
-const platformArray = data.layers
+export default data.layers
   .find((layer) => layer.name === "platforms")
   .objects.map(
     (object) =>
@@ -14,5 +14,3 @@ const platformArray = data.layers
         height: object.height,
       })
   );
-
-export default platformArray;

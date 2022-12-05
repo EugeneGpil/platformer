@@ -13,6 +13,6 @@ const canvas = ref(null);
 globals.canvas = canvas;
 
 onMounted(() => {
-  init()
+  init();
 });
 </script>
