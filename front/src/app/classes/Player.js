@@ -22,12 +22,32 @@ export default class Player {
   update() {
     this.draw();
     this.position.x += this.velocity.x;
+    this.checkForHorizontalCollisions()
     this.applyGravity();
     this.checkForVerticalCollisions();
   }
   applyGravity() {
     this.position.y += this.velocity.y;
     this.velocity.y += globals.gravity;
+  }
+
+  checkForHorizontalCollisions() {
+    for (let collisionBlock of allCollisions) {
+      if (detectCollisions({ obj1: this, obj2: collisionBlock })) {
+        if (this.velocity.x > 0) {
+          this.velocity.x = 0;
+          this.position.x = collisionBlock.position.x - this.width - 0.01;
+          return;
+        }
+
+        if (this.velocity.x < 0) {
+          this.velocity.x = 0;
+          this.position.x =
+            collisionBlock.position.x + collisionBlock.width + 0.01;
+          return;
+        }
+      }
+    }
   }
   checkForVerticalCollisions() {
     for (let collisionBlock of allCollisions) {
