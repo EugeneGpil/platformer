@@ -22,6 +22,8 @@ export default () => {
       x: 0,
       y: 300,
     },
+    imageSrc: "/img/warrior/Idle.png",
+    framesCount: 8,
   });
 
   animateVars.background = new Sprite({

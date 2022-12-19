@@ -1,5 +1,6 @@
 import allCollisions from "src/app/arrays/collisions/allCollisions";
 import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisionsWithCollection";
+import groundArray from "src/app/arrays/collisions/types/groundArray";
 
 export default ({ object }) => {
   const objectCopy = object.copy();
@@ -8,6 +9,6 @@ export default ({ object }) => {
 
   return !!detectCollisionsWithCollection({
     object: objectCopy,
-    objectsCollection: allCollisions,
+    objectsCollection: groundArray, //allCollisions,
   });
 };

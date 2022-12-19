@@ -2,32 +2,30 @@ import globals from "src/app/objects/globals";
 import allCollisions from "src/app/arrays/collisions/allCollisions";
 import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisionsWithCollection";
 import isObjectStanding from "src/app/functions/collisions/withGravity/isObjectStanding";
+import Sprite from "src/app/classes/Sprite";
+import groundArray from "src/app/arrays/collisions/types/groundArray";
 
-export default class Player {
-  constructor({ position }) {
-    this.position = position;
+export default class Player extends Sprite {
+  constructor({ position, imageSrc, framesCount = 1 }) {
+    super({ position, imageSrc, framesCount });
+
     this.velocity = { x: 0, y: 1 };
-
-    this.height = 25;
-    this.width = 25;
   }
 
-  draw() {
-    globals.c.fillStyle = "red";
+  update() {
+    globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
     globals.c.fillRect(
       this.position.x,
       this.position.y,
       this.width,
       this.height
     );
-  }
-
-  update() {
     this.draw();
     this.position.x += this.velocity.x;
     this.checkForHorizontalCollisions();
     this.applyGravity();
     this.checkForVerticalCollisions();
+    this.updateFrames();
   }
 
   applyGravity() {
@@ -38,7 +36,7 @@ export default class Player {
   checkForHorizontalCollisions() {
     const collisionBlock = detectCollisionsWithCollection({
       object: this,
-      objectsCollection: allCollisions,
+      objectsCollection: groundArray, //allCollisions,
     });
 
     if (collisionBlock) {
@@ -59,7 +57,7 @@ export default class Player {
   checkForVerticalCollisions() {
     const collisionBlock = detectCollisionsWithCollection({
       object: this,
-      objectsCollection: allCollisions,
+      objectsCollection: groundArray, //allCollisions,
     });
 
     if (collisionBlock) {
@@ -98,11 +96,16 @@ export default class Player {
   }
 
   copy() {
-    return new Player({
+    const newPlayer = new Player({
       position: {
         x: this.position.x,
         y: this.position.y,
       },
+      imageSrc: this.initImageSrc,
+      framesCount: this.framesCount,
     });
+    newPlayer.width = this.width;
+    newPlayer.height = this.height;
+    return newPlayer;
   }
 }
