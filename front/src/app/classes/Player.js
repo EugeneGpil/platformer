@@ -3,7 +3,6 @@ import allCollisions from "src/app/arrays/collisions/allCollisions";
 import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisionsWithCollection";
 import isObjectStanding from "src/app/functions/collisions/withGravity/isObjectStanding";
 import Sprite from "src/app/classes/Sprite";
-import groundArray from "src/app/arrays/collisions/types/groundArray";
 
 export default class Player extends Sprite {
   constructor({
@@ -17,14 +16,23 @@ export default class Player extends Sprite {
 
     this.velocity = {x: 0, y: 1};
 
+    this.hitboxOffset = {x: 36, y: 26};
+
     this.updateHitbox();
   }
 
   update() {
     this.updateFrames();
-    this.updateHitbox();
+    this.drawImage();
+    this.drawHitbox();
+    this.draw();
+    this.applyXVelocity()
+    this.checkForHorizontalCollisions();
+    this.applyGravity();
+    this.checkForVerticalCollisions();
+  }
 
-    // draw an image
+  drawImage() {
     globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
     globals.c.fillRect(
       this.position.x,
@@ -32,70 +40,77 @@ export default class Player extends Sprite {
       this.width,
       this.height
     );
-
-    // draw hitbox
-
-    this.draw();
-    this.position.x += this.velocity.x;
-    this.checkForHorizontalCollisions();
-    this.applyGravity();
-    this.checkForVerticalCollisions();
   }
 
-  updateHitbox() {
-    this.hitbox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      width: 10,
-      height: 10,
-    };
+  drawHitbox() {
+    globals.c.fillStyle = "rgba(255, 0, 0, 0.1)";
+    globals.c.fillRect(
+      this.hitbox.position.x,
+      this.hitbox.position.y,
+      this.hitbox.width,
+      this.hitbox.height,
+    );
   }
 
   applyGravity() {
     this.position.y += this.velocity.y;
     this.velocity.y += globals.gravity;
+    this.updateHitbox()
+  }
+
+  updateHitbox() {
+    this.hitbox = {
+      position: {
+        x: this.position.x + this.hitboxOffset.x,
+        y: this.position.y + this.hitboxOffset.y,
+      },
+      width: 12,
+      height: 27,
+    };
+  }
+
+  applyXVelocity() {
+    this.position.x += this.velocity.x;
+    this.updateHitbox();
   }
 
   checkForHorizontalCollisions() {
     const collisionBlock = detectCollisionsWithCollection({
-      object: this,
-      objectsCollection: groundArray, //allCollisions,
+      object: this.hitbox,
+      objectsCollection: allCollisions,
     });
 
     if (collisionBlock) {
       if (this.velocity.x > 0) {
         this.velocity.x = 0;
-        this.position.x = collisionBlock.position.x - this.width - 0.01;
+        this.position.x = collisionBlock.position.x - (this.hitboxOffset.x + this.hitbox.width) - 0.01;
         return;
       }
 
       if (this.velocity.x < 0) {
         this.velocity.x = 0;
         this.position.x =
-          collisionBlock.position.x + collisionBlock.width + 0.01;
+          collisionBlock.position.x + collisionBlock.width - this.hitboxOffset.x + 0.01;
       }
     }
   }
 
   checkForVerticalCollisions() {
     const collisionBlock = detectCollisionsWithCollection({
-      object: this,
-      objectsCollection: groundArray, //allCollisions,
+      object: this.hitbox,
+      objectsCollection: allCollisions,
     });
 
     if (collisionBlock) {
       if (this.velocity.y > 0) {
         this.velocity.y = 0;
-        this.position.y = collisionBlock.position.y - this.height - 0.01;
+        this.position.y = collisionBlock.position.y - this.hitboxOffset.y - this.hitbox.height - 0.01;
         return;
       }
 
       if (this.velocity.y < 0) {
         this.velocity.y = 0;
-        this.position.y =
-          collisionBlock.position.y + collisionBlock.height + 0.01;
+        this.position.y = collisionBlock.position.y + collisionBlock.height - this.hitboxOffset.y + 0.01;
       }
     }
   }

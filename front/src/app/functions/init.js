@@ -20,7 +20,7 @@ export default () => {
   globals.player = new Player({
     position: {
       x: 0,
-      y: 300,
+      y: 250,
     },
     imageSrc: "/img/warrior/Idle.png",
     framesCount: 8,
