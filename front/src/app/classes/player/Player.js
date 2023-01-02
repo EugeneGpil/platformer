@@ -3,20 +3,21 @@ import allCollisions from "src/app/arrays/collisions/allCollisions";
 import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisionsWithCollection";
 import isObjectStanding from "src/app/functions/collisions/withGravity/isObjectStanding";
 import Sprite from "src/app/classes/Sprite";
+import copy from "src/app/objects/copy";
 
 export default class Player extends Sprite {
   constructor({
-                position,
-                imageSrc,
-                framesCount = 1,
-                frameBuffer = 3,
-                scale = 0.5,
-              }) {
-    super({position, imageSrc, framesCount, frameBuffer, scale});
+    position,
+    imageSrc,
+    framesCount = 1,
+    frameBuffer = 3,
+    scale = 0.5,
+  }) {
+    super({ position, imageSrc, framesCount, frameBuffer, scale });
 
-    this.velocity = {x: 0, y: 1};
+    this.velocity = { x: 0, y: 1 };
 
-    this.hitboxOffset = {x: 36, y: 26};
+    this.hitboxOffset = { x: 36, y: 26 };
 
     this.updateHitbox();
   }
@@ -26,7 +27,7 @@ export default class Player extends Sprite {
     this.drawImage();
     this.drawHitbox();
     this.draw();
-    this.applyXVelocity()
+    this.applyXVelocity();
     this.checkForHorizontalCollisions();
     this.applyGravity();
     this.checkForVerticalCollisions();
@@ -48,14 +49,14 @@ export default class Player extends Sprite {
       this.hitbox.position.x,
       this.hitbox.position.y,
       this.hitbox.width,
-      this.hitbox.height,
+      this.hitbox.height
     );
   }
 
   applyGravity() {
     this.position.y += this.velocity.y;
     this.velocity.y += globals.gravity;
-    this.updateHitbox()
+    this.updateHitbox();
   }
 
   updateHitbox() {
@@ -83,14 +84,20 @@ export default class Player extends Sprite {
     if (collisionBlock) {
       if (this.velocity.x > 0) {
         this.velocity.x = 0;
-        this.position.x = collisionBlock.position.x - (this.hitboxOffset.x + this.hitbox.width) - 0.01;
+        this.position.x =
+          collisionBlock.position.x -
+          (this.hitboxOffset.x + this.hitbox.width) -
+          0.01;
         return;
       }
 
       if (this.velocity.x < 0) {
         this.velocity.x = 0;
         this.position.x =
-          collisionBlock.position.x + collisionBlock.width - this.hitboxOffset.x + 0.01;
+          collisionBlock.position.x +
+          collisionBlock.width -
+          this.hitboxOffset.x +
+          0.01;
       }
     }
   }
@@ -104,19 +111,27 @@ export default class Player extends Sprite {
     if (collisionBlock) {
       if (this.velocity.y > 0) {
         this.velocity.y = 0;
-        this.position.y = collisionBlock.position.y - this.hitboxOffset.y - this.hitbox.height - 0.01;
+        this.position.y =
+          collisionBlock.position.y -
+          this.hitboxOffset.y -
+          this.hitbox.height -
+          0.01;
         return;
       }
 
       if (this.velocity.y < 0) {
         this.velocity.y = 0;
-        this.position.y = collisionBlock.position.y + collisionBlock.height - this.hitboxOffset.y + 0.01;
+        this.position.y =
+          collisionBlock.position.y +
+          collisionBlock.height -
+          this.hitboxOffset.y +
+          0.01;
       }
     }
   }
 
   jump() {
-    const isStanding = isObjectStanding({object: this});
+    const isStanding = isObjectStanding({ object: this });
 
     if (isStanding) {
       this.velocity.y = -4;
@@ -136,16 +151,6 @@ export default class Player extends Sprite {
   }
 
   copy() {
-    const newPlayer = new Player({
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      imageSrc: this.initImageSrc,
-      framesCount: this.framesCount,
-    });
-    newPlayer.width = this.width;
-    newPlayer.height = this.height;
-    return newPlayer;
+    return copy.player(this);
   }
 }

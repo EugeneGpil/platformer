@@ -2,11 +2,11 @@ import globals from "src/app/objects/globals";
 
 export default class Sprite {
   constructor({
-                position,
-                imageSrc,
-                framesCount = 1,
-                frameBuffer = 3,
-                scale = 1,
+    position,
+    imageSrc,
+    framesCount = 1,
+    frameBuffer = 3,
+    scale = 1,
   }) {
     this.position = position;
     this.scale = scale;
@@ -56,10 +56,10 @@ export default class Sprite {
   }
 
   updateFrames() {
-    this.elapsedFrames++
+    this.elapsedFrames++;
 
     if (this.elapsedFrames % this.frameBuffer !== 0) {
-      return
+      return;
     }
 
     const nextFrame = this.currentFrame + 1;

@@ -1,7 +1,7 @@
 import allCollisions from "src/app/arrays/collisions/allCollisions";
 import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisionsWithCollection";
 
-export default ({object}) => {
+export default ({ object }) => {
   const objectCopy = object.copy();
 
   objectCopy.applyGravity();

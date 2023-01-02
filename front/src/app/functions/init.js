@@ -1,5 +1,5 @@
 import globals from "src/app/objects/globals";
-import Player from "src/app/classes/Player";
+import Player from "src/app/classes/player/Player";
 import Sprite from "src/app/classes/Sprite";
 import addKeydownEventListener from "src/app/functions/keyboard/addKeydownEventListener";
 import addKeyupEventListener from "src/app/functions/keyboard/addKeyupEventListener";
