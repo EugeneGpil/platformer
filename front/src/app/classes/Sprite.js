@@ -1,17 +1,26 @@
 import globals from "src/app/objects/globals";
 
 export default class Sprite {
-  constructor({ position, imageSrc, framesCount = 1 }) {
+  constructor({
+                position,
+                imageSrc,
+                framesCount = 1,
+                frameBuffer = 3,
+                scale = 1,
+  }) {
     this.position = position;
+    this.scale = scale;
     this.image = new Image();
     this.image.onload = () => {
-      this.width = this.image.width / framesCount;
-      this.height = this.image.height;
+      this.width = (this.image.width / framesCount) * this.scale;
+      this.height = this.image.height * this.scale;
     };
     this.initImageSrc = imageSrc;
     this.image.src = imageSrc;
     this.framesCount = framesCount;
     this.currentFrame = 0;
+    this.frameBuffer = frameBuffer;
+    this.elapsedFrames = 0;
   }
 
   draw() {
@@ -39,8 +48,6 @@ export default class Sprite {
       this.width,
       this.height
     );
-
-    // globals.c.drawImage(this.image, this.position.x, this.position.y);
   }
 
   update() {
@@ -49,6 +56,12 @@ export default class Sprite {
   }
 
   updateFrames() {
+    this.elapsedFrames++
+
+    if (this.elapsedFrames % this.frameBuffer !== 0) {
+      return
+    }
+
     const nextFrame = this.currentFrame + 1;
     if (nextFrame >= this.framesCount) {
       return (this.currentFrame = 0);
