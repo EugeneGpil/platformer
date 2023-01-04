@@ -7,8 +7,6 @@ export default {
         x: player.position.x,
         y: player.position.y,
       },
-      imageSrc: player.initImageSrc,
-      framesCount: player.framesCount,
       animations: player.animations,
     });
     newPlayer.width = player.width;

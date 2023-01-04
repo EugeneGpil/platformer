@@ -6,14 +6,16 @@ import Sprite from "src/app/classes/Sprite";
 import copy from "src/app/objects/copy";
 
 export default class Player extends Sprite {
-  constructor({
-    position,
-    imageSrc,
-    framesCount = 1,
-    frameBuffer = 3,
-    scale = 0.5,
-    animations,
-  }) {
+  constructor({ position, scale = 0.5, animations }) {
+    const animationKeys = {
+      Idle: "Idle",
+      Run: "Run",
+    };
+
+    const frameBuffer = animations[animationKeys.Idle].frameBuffer;
+    const framesCount = animations[animationKeys.Idle].framesCount;
+    const imageSrc = animations[animationKeys.Idle].imageSrc;
+
     super({ position, imageSrc, framesCount, frameBuffer, scale });
 
     this.velocity = { x: 0, y: 1 };
@@ -21,17 +23,19 @@ export default class Player extends Sprite {
     this.hitboxOffset = { x: 36, y: 26 };
 
     this.animations = this.getInitAnimations(animations);
+
+    this.animationKeys = animationKeys;
   }
 
   getInitAnimations(animations) {
-    return Object.keys(animations).reduce((res, animation) => {
+    return Object.keys(animations).reduce((res, animationKey) => {
       const image = new Image();
-      image.src = animation.imageSrc;
+      image.src = animations[animationKey].imageSrc;
 
-      res.push({
-        ...animation,
+      res[animationKey] = {
+        ...animations[animationKey],
         image,
-      });
+      };
 
       return res;
     }, []);
@@ -155,6 +159,7 @@ export default class Player extends Sprite {
 
   stop() {
     this.velocity.x = 0;
+    this.switchSprite(this.animationKeys.Idle);
   }
 
   moveLeft() {
@@ -163,6 +168,17 @@ export default class Player extends Sprite {
 
   moveRight() {
     this.velocity.x = 5;
+    this.switchSprite(this.animationKeys.Run);
+  }
+
+  switchSprite(spriteName) {
+    if (this.image === this.animations[spriteName]) {
+      return;
+    }
+
+    this.image = this.animations[spriteName].image;
+    this.frameBuffer = this.animations[spriteName].frameBuffer;
+    this.framesCount = this.animations[spriteName].framesCount;
   }
 
   copy() {

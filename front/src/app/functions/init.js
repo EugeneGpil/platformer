@@ -22,16 +22,16 @@ export default () => {
       x: 0,
       y: 250,
     },
-    imageSrc: "/img/warrior/Idle.png",
-    framesCount: 8,
     animations: {
       Idle: {
         imageSrc: "/img/warrior/Idle.png",
         framesCount: 8,
+        frameBuffer: 3,
       },
       Run: {
         imageSrc: "/img/warrior/Run.png",
         framesCount: 8,
+        frameBuffer: 5,
       },
     },
   });
