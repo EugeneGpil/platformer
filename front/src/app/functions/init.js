@@ -24,6 +24,16 @@ export default () => {
     },
     imageSrc: "/img/warrior/Idle.png",
     framesCount: 8,
+    animations: {
+      Idle: {
+        imageSrc: "/img/warrior/Idle.png",
+        framesCount: 8,
+      },
+      Run: {
+        imageSrc: "/img/warrior/Run.png",
+        framesCount: 8,
+      },
+    },
   });
 
   animateVars.background = new Sprite({

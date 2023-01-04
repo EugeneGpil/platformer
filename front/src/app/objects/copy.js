@@ -9,6 +9,7 @@ export default {
       },
       imageSrc: player.initImageSrc,
       framesCount: player.framesCount,
+      animations: player.animations,
     });
     newPlayer.width = player.width;
     newPlayer.height = player.height;

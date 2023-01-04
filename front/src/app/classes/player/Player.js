@@ -12,6 +12,7 @@ export default class Player extends Sprite {
     framesCount = 1,
     frameBuffer = 3,
     scale = 0.5,
+    animations,
   }) {
     super({ position, imageSrc, framesCount, frameBuffer, scale });
 
@@ -19,18 +20,32 @@ export default class Player extends Sprite {
 
     this.hitboxOffset = { x: 36, y: 26 };
 
-    this.updateHitbox();
+    this.animations = this.getInitAnimations(animations);
+  }
+
+  getInitAnimations(animations) {
+    return Object.keys(animations).reduce((res, animation) => {
+      const image = new Image();
+      image.src = animation.imageSrc;
+
+      res.push({
+        ...animation,
+        image,
+      });
+
+      return res;
+    }, []);
   }
 
   update() {
     this.updateFrames();
-    this.drawImage();
-    this.drawHitbox();
     this.draw();
     this.applyXVelocity();
     this.checkForHorizontalCollisions();
     this.applyGravity();
     this.checkForVerticalCollisions();
+    this.drawImage();
+    this.drawHitbox();
   }
 
   drawImage() {
