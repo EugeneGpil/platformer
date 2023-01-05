@@ -135,9 +135,7 @@ export default class Player extends Sprite {
   }
 
   jump() {
-    const isStanding = isObjectStanding({ object: this });
-
-    if (!isStanding) {
+    if (!this.isStanding()) {
       return;
     }
 
@@ -148,7 +146,7 @@ export default class Player extends Sprite {
   stop() {
     this.velocity.x = 0;
 
-    if (this.velocity.y !== 0) {
+    if (!this.isStanding()) {
       return;
     }
 
@@ -162,7 +160,7 @@ export default class Player extends Sprite {
   moveRight() {
     this.velocity.x = this.movementVelocity;
 
-    if (this.velocity.y !== 0) {
+    if (!this.isStanding()) {
       return;
     }
 
@@ -181,5 +179,9 @@ export default class Player extends Sprite {
 
   copy() {
     return copy.player(this);
+  }
+
+  isStanding() {
+    return isObjectStanding({ object: this });
   }
 }
