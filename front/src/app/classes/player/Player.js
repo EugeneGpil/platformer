@@ -5,14 +5,10 @@ import isObjectStanding from "src/app/functions/collisions/withGravity/isObjectS
 import Sprite from "src/app/classes/Sprite";
 import copy from "src/app/objects/copy";
 import getInitPlayerAnimations from "src/app/classes/player/functions/getInitPlayerAnimations";
+import { animationKeys } from "src/app/classes/player/functions/getInitPlayerAnimations";
 
 export default class Player extends Sprite {
   constructor({ position, scale = 0.5 }) {
-    const animationKeys = {
-      Idle: "Idle",
-      Run: "Run",
-    };
-
     const animations = getInitPlayerAnimations();
 
     const frameBuffer = animations[animationKeys.Idle].frameBuffer;
@@ -26,8 +22,6 @@ export default class Player extends Sprite {
     this.hitboxOffset = { x: 36, y: 26 };
 
     this.animations = animations;
-
-    this.animationKeys = animationKeys;
 
     this.movementVelocity = 3;
   }
@@ -143,14 +137,22 @@ export default class Player extends Sprite {
   jump() {
     const isStanding = isObjectStanding({ object: this });
 
-    if (isStanding) {
-      this.velocity.y = -4;
+    if (!isStanding) {
+      return;
     }
+
+    this.velocity.y = -4;
+    this.switchSprite(animationKeys.Jump);
   }
 
   stop() {
     this.velocity.x = 0;
-    this.switchSprite(this.animationKeys.Idle);
+
+    if (this.velocity.y !== 0) {
+      return;
+    }
+
+    this.switchSprite(animationKeys.Idle);
   }
 
   moveLeft() {
@@ -159,7 +161,12 @@ export default class Player extends Sprite {
 
   moveRight() {
     this.velocity.x = this.movementVelocity;
-    this.switchSprite(this.animationKeys.Run);
+
+    if (this.velocity.y !== 0) {
+      return;
+    }
+
+    this.switchSprite(animationKeys.Run);
   }
 
   switchSprite(spriteName) {

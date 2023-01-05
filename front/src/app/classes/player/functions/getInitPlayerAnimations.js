@@ -1,12 +1,23 @@
+export const animationKeys = {
+  Idle: "Idle",
+  Run: "Run",
+  Jump: "Jump",
+};
+
 const animations = {
-  Idle: {
+  [animationKeys.Idle]: {
     imageSrc: "/img/warrior/Idle.png",
     framesCount: 8,
     frameBuffer: 5,
   },
-  Run: {
+  [animationKeys.Run]: {
     imageSrc: "/img/warrior/Run.png",
     framesCount: 8,
+    frameBuffer: 5,
+  },
+  [animationKeys.Jump]: {
+    imageSrc: "/img/warrior/Jump.png",
+    framesCount: 2,
     frameBuffer: 5,
   },
 };
