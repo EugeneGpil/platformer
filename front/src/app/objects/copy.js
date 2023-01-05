@@ -7,7 +7,6 @@ export default {
         x: player.position.x,
         y: player.position.y,
       },
-      animations: player.animations,
     });
     newPlayer.width = player.width;
     newPlayer.height = player.height;

@@ -4,13 +4,16 @@ import detectCollisionsWithCollection from "src/app/functions/collisions/detectC
 import isObjectStanding from "src/app/functions/collisions/withGravity/isObjectStanding";
 import Sprite from "src/app/classes/Sprite";
 import copy from "src/app/objects/copy";
+import getInitPlayerAnimations from "src/app/classes/player/functions/getInitPlayerAnimations";
 
 export default class Player extends Sprite {
-  constructor({ position, scale = 0.5, animations }) {
+  constructor({ position, scale = 0.5 }) {
     const animationKeys = {
       Idle: "Idle",
       Run: "Run",
     };
+
+    const animations = getInitPlayerAnimations();
 
     const frameBuffer = animations[animationKeys.Idle].frameBuffer;
     const framesCount = animations[animationKeys.Idle].framesCount;
@@ -22,23 +25,11 @@ export default class Player extends Sprite {
 
     this.hitboxOffset = { x: 36, y: 26 };
 
-    this.animations = this.getInitAnimations(animations);
+    this.animations = animations;
 
     this.animationKeys = animationKeys;
-  }
 
-  getInitAnimations(animations) {
-    return Object.keys(animations).reduce((res, animationKey) => {
-      const image = new Image();
-      image.src = animations[animationKey].imageSrc;
-
-      res[animationKey] = {
-        ...animations[animationKey],
-        image,
-      };
-
-      return res;
-    }, []);
+    this.movementVelocity = 3;
   }
 
   update() {
@@ -163,11 +154,11 @@ export default class Player extends Sprite {
   }
 
   moveLeft() {
-    this.velocity.x = -5;
+    this.velocity.x = -this.movementVelocity;
   }
 
   moveRight() {
-    this.velocity.x = 5;
+    this.velocity.x = this.movementVelocity;
     this.switchSprite(this.animationKeys.Run);
   }
 
