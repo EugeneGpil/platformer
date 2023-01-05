@@ -1,22 +1,28 @@
 export const animationKeys = {
-  Idle: "Idle",
-  Run: "Run",
-  Jump: "Jump",
+  idle: "idle",
+  run: "run",
+  jump: "jump",
+  fall: "fall",
 };
 
 const animations = {
-  [animationKeys.Idle]: {
+  [animationKeys.idle]: {
     imageSrc: "/img/warrior/Idle.png",
     framesCount: 8,
     frameBuffer: 5,
   },
-  [animationKeys.Run]: {
+  [animationKeys.run]: {
     imageSrc: "/img/warrior/Run.png",
     framesCount: 8,
     frameBuffer: 5,
   },
-  [animationKeys.Jump]: {
+  [animationKeys.jump]: {
     imageSrc: "/img/warrior/Jump.png",
+    framesCount: 2,
+    frameBuffer: 5,
+  },
+  [animationKeys.fall]: {
+    imageSrc: "/img/warrior/Fall.png",
     framesCount: 2,
     frameBuffer: 5,
   },

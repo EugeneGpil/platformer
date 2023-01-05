@@ -11,9 +11,9 @@ export default class Player extends Sprite {
   constructor({ position, scale = 0.5 }) {
     const animations = getInitPlayerAnimations();
 
-    const frameBuffer = animations[animationKeys.Idle].frameBuffer;
-    const framesCount = animations[animationKeys.Idle].framesCount;
-    const imageSrc = animations[animationKeys.Idle].imageSrc;
+    const frameBuffer = animations[animationKeys.fall].frameBuffer;
+    const framesCount = animations[animationKeys.fall].framesCount;
+    const imageSrc = animations[animationKeys.fall].imageSrc;
 
     super({ position, imageSrc, framesCount, frameBuffer, scale });
 
@@ -33,6 +33,7 @@ export default class Player extends Sprite {
     this.checkForHorizontalCollisions();
     this.applyGravity();
     this.checkForVerticalCollisions();
+    this.shallUpdateSprite();
     this.drawImage();
     this.drawHitbox();
   }
@@ -140,7 +141,7 @@ export default class Player extends Sprite {
     }
 
     this.velocity.y = -4;
-    this.switchSprite(animationKeys.Jump);
+    this.switchSprite(animationKeys.jump);
   }
 
   stop() {
@@ -150,7 +151,7 @@ export default class Player extends Sprite {
       return;
     }
 
-    this.switchSprite(animationKeys.Idle);
+    this.switchSprite(animationKeys.idle);
   }
 
   moveLeft() {
@@ -164,7 +165,15 @@ export default class Player extends Sprite {
       return;
     }
 
-    this.switchSprite(animationKeys.Run);
+    this.switchSprite(animationKeys.run);
+  }
+
+  shallUpdateSprite() {
+    if (this.velocity.y <= 0) {
+      return;
+    }
+
+    this.switchSprite(animationKeys.fall);
   }
 
   switchSprite(spriteName) {
