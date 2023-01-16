@@ -11,9 +11,9 @@ export default class Player extends Sprite {
   constructor({ position, scale = 0.5 }) {
     const animations = getInitPlayerAnimations();
 
-    const frameBuffer = animations[animationKeys.fall].frameBuffer;
-    const framesCount = animations[animationKeys.fall].framesCount;
-    const imageSrc = animations[animationKeys.fall].imageSrc;
+    const frameBuffer = animations[animationKeys.right.fall].frameBuffer;
+    const framesCount = animations[animationKeys.right.fall].framesCount;
+    const imageSrc = animations[animationKeys.right.fall].imageSrc;
 
     super({ position, imageSrc, framesCount, frameBuffer, scale });
 
@@ -24,6 +24,8 @@ export default class Player extends Sprite {
     this.animations = animations;
 
     this.movementVelocity = 3;
+
+    this.direction = "right";
   }
 
   update() {
@@ -33,6 +35,7 @@ export default class Player extends Sprite {
     this.checkForHorizontalCollisions();
     this.applyGravity();
     this.checkForVerticalCollisions();
+    this.setDirection();
     this.shallUpdateSprite();
     // this.drawBackground();
     // this.drawHitbox();
@@ -141,17 +144,10 @@ export default class Player extends Sprite {
     }
 
     this.velocity.y = -4;
-    this.switchSprite(animationKeys.jump);
   }
 
   stop() {
     this.velocity.x = 0;
-
-    if (!this.isStanding()) {
-      return;
-    }
-
-    this.switchSprite(animationKeys.idle);
   }
 
   moveLeft() {
@@ -160,20 +156,42 @@ export default class Player extends Sprite {
 
   moveRight() {
     this.velocity.x = this.movementVelocity;
+  }
 
-    if (!this.isStanding()) {
+  setDirection() {
+    if (this.velocity.x > 0) {
+      this.direction = "right";
+
       return;
     }
 
-    this.switchSprite(animationKeys.run);
+    if (this.velocity.x < 0) {
+      this.direction = "left";
+    }
   }
 
   shallUpdateSprite() {
-    if (this.velocity.y <= 0) {
+    if (!this.isStanding() && this.velocity.y < 0) {
+      this.switchSprite(animationKeys[this.direction].jump);
+
       return;
     }
 
-    this.switchSprite(animationKeys.fall);
+    if (!this.isStanding() && this.velocity.y > 0) {
+      this.switchSprite(animationKeys[this.direction].fall);
+
+      return;
+    }
+
+    if (this.isStanding() && this.velocity.x === 0) {
+      this.switchSprite(animationKeys[this.direction].idle);
+
+      return;
+    }
+
+    if (this.isStanding() && this.velocity.x !== 0) {
+      this.switchSprite(animationKeys[this.direction].run);
+    }
   }
 
   switchSprite(spriteName) {
