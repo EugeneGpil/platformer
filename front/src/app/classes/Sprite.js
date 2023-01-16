@@ -15,7 +15,6 @@ export default class Sprite {
       this.width = (this.image.width / framesCount) * this.scale;
       this.height = this.image.height * this.scale;
     };
-    this.initImageSrc = imageSrc;
     this.image.src = imageSrc;
     this.framesCount = framesCount;
     this.currentFrame = 0;

@@ -34,11 +34,11 @@ export default class Player extends Sprite {
     this.applyGravity();
     this.checkForVerticalCollisions();
     this.shallUpdateSprite();
-    this.drawImage();
-    this.drawHitbox();
+    // this.drawBackground();
+    // this.drawHitbox();
   }
 
-  drawImage() {
+  drawBackground() {
     globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
     globals.c.fillRect(
       this.position.x,
