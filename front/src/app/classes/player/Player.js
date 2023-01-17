@@ -26,6 +26,8 @@ export default class Player extends Sprite {
     this.movementVelocity = 3;
 
     this.direction = "right";
+
+    this.isStanding = false;
   }
 
   update() {
@@ -37,6 +39,7 @@ export default class Player extends Sprite {
     this.checkForVerticalCollisions();
     this.setDirection();
     this.shallUpdateSprite();
+    this.updateIsStanding();
     // this.drawBackground();
     // this.drawHitbox();
   }
@@ -139,7 +142,7 @@ export default class Player extends Sprite {
   }
 
   jump() {
-    if (!this.isStanding()) {
+    if (!this.isStanding) {
       return;
     }
 
@@ -171,25 +174,25 @@ export default class Player extends Sprite {
   }
 
   shallUpdateSprite() {
-    if (!this.isStanding() && this.velocity.y < 0) {
+    if (!this.isStanding && this.velocity.y < 0) {
       this.switchSprite(animationKeys[this.direction].jump);
 
       return;
     }
 
-    if (!this.isStanding() && this.velocity.y > 0) {
+    if (!this.isStanding && this.velocity.y > 0) {
       this.switchSprite(animationKeys[this.direction].fall);
 
       return;
     }
 
-    if (this.isStanding() && this.velocity.x === 0) {
+    if (this.isStanding && this.velocity.x === 0) {
       this.switchSprite(animationKeys[this.direction].idle);
 
       return;
     }
 
-    if (this.isStanding() && this.velocity.x !== 0) {
+    if (this.isStanding && this.velocity.x !== 0) {
       this.switchSprite(animationKeys[this.direction].run);
     }
   }
@@ -208,7 +211,11 @@ export default class Player extends Sprite {
     return copy.player(this);
   }
 
-  isStanding() {
+  getIsStanding() {
     return isObjectStanding({ object: this });
+  }
+
+  updateIsStanding() {
+    this.isStanding = this.getIsStanding();
   }
 }
