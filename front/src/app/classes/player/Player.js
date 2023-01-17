@@ -198,11 +198,12 @@ export default class Player extends Sprite {
   }
 
   switchSprite(spriteName) {
-    if (this.image === this.animations[spriteName]) {
+    if (this.image === this.animations[spriteName].image) {
       return;
     }
 
     this.image = this.animations[spriteName].image;
+    this.currentFrame = 0;
     this.frameBuffer = this.animations[spriteName].frameBuffer;
     this.framesCount = this.animations[spriteName].framesCount;
   }
