@@ -1,11 +1,12 @@
 import globals from "src/app/objects/globals";
-import allCollisions from "src/app/arrays/collisions/allCollisions";
-import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisionsWithCollection";
 import isObjectStanding from "src/app/functions/collisions/withGravity/isObjectStanding";
 import Sprite from "src/app/classes/Sprite";
 import copy from "src/app/objects/copy";
 import getInitPlayerAnimations from "src/app/classes/player/functions/getInitPlayerAnimations";
 import { animationKeys } from "src/app/classes/player/functions/getInitPlayerAnimations";
+import debugDrawer from "src/app/objects/debugDrawer";
+import checkForVerticalCollisions from "src/app/classes/player/functions/checkForVerticalCollisions";
+import checkForHorizontalCollisions from "src/app/classes/player/functions/checkForHorizontalCollisions";
 
 export default class Player extends Sprite {
   constructor({ position, scale = 0.5 }) {
@@ -19,7 +20,7 @@ export default class Player extends Sprite {
 
     this.velocity = { x: 0, y: 1 };
 
-    this.hitboxOffset = { x: 36, y: 26 };
+    this.hitboxOffset = { x: 34, y: 26 };
 
     this.animations = animations;
 
@@ -34,34 +35,14 @@ export default class Player extends Sprite {
     this.updateFrames();
     this.draw();
     this.applyXVelocity();
-    this.checkForHorizontalCollisions();
+    checkForHorizontalCollisions({ object: this });
     this.applyGravity();
-    this.checkForVerticalCollisions();
+    checkForVerticalCollisions({ object: this });
     this.setDirection();
     this.shallUpdateSprite();
     this.updateIsStanding();
-    // this.drawBackground();
-    // this.drawHitbox();
-  }
-
-  drawBackground() {
-    globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
-    globals.c.fillRect(
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height
-    );
-  }
-
-  drawHitbox() {
-    globals.c.fillStyle = "rgba(255, 0, 0, 0.1)";
-    globals.c.fillRect(
-      this.hitbox.position.x,
-      this.hitbox.position.y,
-      this.hitbox.width,
-      this.hitbox.height
-    );
+    debugDrawer.drawBackground({ object: this });
+    debugDrawer.drawHitbox({ object: this });
   }
 
   applyGravity() {
@@ -84,61 +65,6 @@ export default class Player extends Sprite {
   applyXVelocity() {
     this.position.x += this.velocity.x;
     this.updateHitbox();
-  }
-
-  checkForHorizontalCollisions() {
-    const collisionBlock = detectCollisionsWithCollection({
-      object: this.hitbox,
-      objectsCollection: allCollisions,
-    });
-
-    if (collisionBlock) {
-      if (this.velocity.x > 0) {
-        this.velocity.x = 0;
-        this.position.x =
-          collisionBlock.position.x -
-          (this.hitboxOffset.x + this.hitbox.width) -
-          0.01;
-        return;
-      }
-
-      if (this.velocity.x < 0) {
-        this.velocity.x = 0;
-        this.position.x =
-          collisionBlock.position.x +
-          collisionBlock.width -
-          this.hitboxOffset.x +
-          0.01;
-      }
-    }
-  }
-
-  checkForVerticalCollisions() {
-    const collisionBlock = detectCollisionsWithCollection({
-      object: this.hitbox,
-      objectsCollection: allCollisions,
-    });
-
-    if (collisionBlock) {
-      if (this.velocity.y > 0) {
-        this.velocity.y = 0;
-        this.position.y =
-          collisionBlock.position.y -
-          this.hitboxOffset.y -
-          this.hitbox.height -
-          0.01;
-        return;
-      }
-
-      if (this.velocity.y < 0) {
-        this.velocity.y = 0;
-        this.position.y =
-          collisionBlock.position.y +
-          collisionBlock.height -
-          this.hitboxOffset.y +
-          0.01;
-      }
-    }
   }
 
   jump() {
