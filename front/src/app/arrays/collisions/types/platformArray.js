@@ -1,16 +1,7 @@
-import data from "assets/tiled/theMap.json";
 import PlatformCollisionBlock from "src/app/classes/collisions/PlatformCollisionBlock";
+import createCollisions from "src/app/functions/collisions/createCollisions";
 
-export default data.layers
-  .find((layer) => layer.name === "platforms")
-  .objects.map(
-    (object) =>
-      new PlatformCollisionBlock({
-        position: {
-          x: object.x,
-          y: object.y,
-        },
-        width: object.width,
-        height: object.height,
-      })
-  );
+export default createCollisions({
+  layerName: "platforms",
+  className: "PlatformCollisionBlock",
+});

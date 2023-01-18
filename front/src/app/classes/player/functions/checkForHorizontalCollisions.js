@@ -1,10 +1,10 @@
-import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisionsWithCollection";
-import allCollisions from "src/app/arrays/collisions/allCollisions";
+import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisions/base/detectCollisionsWithCollection";
+import groundArray from "src/app/arrays/collisions/types/groundArray";
 
 export default ({ object }) => {
   const collisionBlock = detectCollisionsWithCollection({
     object: object.hitbox,
-    objectsCollection: allCollisions,
+    objectsCollection: groundArray,
   });
 
   if (collisionBlock) {
