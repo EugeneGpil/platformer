@@ -12,6 +12,8 @@ export default class Sprite {
     this.scale = scale;
     this.image = new Image();
     this.image.onload = () => {
+      const framesCount = this.framesCount || framesCount;
+
       this.width = (this.image.width / framesCount) * this.scale;
       this.height = this.image.height * this.scale;
     };
