@@ -20,7 +20,7 @@ export default () => {
   globals.player = new Player({
     position: {
       x: 30,
-      y: 180,
+      y: 280,
     },
   });
 

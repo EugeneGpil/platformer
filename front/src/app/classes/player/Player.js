@@ -20,8 +20,6 @@ export default class Player extends Sprite {
 
     this.velocity = { x: 0, y: 1 };
 
-    this.hitboxOffset = { x: 34, y: 26 };
-
     this.animations = animations;
 
     this.movementVelocity = 3;
@@ -29,6 +27,9 @@ export default class Player extends Sprite {
     this.direction = "right";
 
     this.isStanding = false;
+
+    this.initHitbox();
+    this.initCameraBox();
   }
 
   update() {
@@ -41,8 +42,10 @@ export default class Player extends Sprite {
     this.setDirection();
     this.shallUpdateSprite();
     this.updateIsStanding();
+    this.updateCameraBox();
     debugDrawer.drawBackground({ object: this });
     debugDrawer.drawHitbox({ object: this });
+    debugDrawer.drawCameraBox({ object: this });
   }
 
   applyGravity() {
@@ -51,7 +54,9 @@ export default class Player extends Sprite {
     this.updateHitbox();
   }
 
-  updateHitbox() {
+  initHitbox() {
+    this.hitboxOffset = { x: 34, y: 26 };
+
     this.hitbox = {
       position: {
         x: this.position.x + this.hitboxOffset.x,
@@ -59,6 +64,38 @@ export default class Player extends Sprite {
       },
       width: 12,
       height: 27,
+    };
+  }
+
+  updateHitbox() {
+    this.hitbox.position = {
+      x: this.position.x + this.hitboxOffset.x,
+      y: this.position.y + this.hitboxOffset.y,
+    };
+  }
+
+  initCameraBox() {
+    const borderLeft = 75;
+    const borderTop = 40;
+
+    this.cameraBox = {
+      position: {
+        x: this.hitbox.position.x - borderLeft,
+        y: this.hitbox.position.y - borderTop,
+      },
+      width: borderLeft * 2 + this.hitbox.width,
+      height: borderTop * 2 + this.hitbox.height,
+      border: {
+        left: borderLeft,
+        top: borderTop,
+      },
+    }
+  }
+
+  updateCameraBox() {
+    this.cameraBox.position = {
+      x: this.hitbox.position.x - this.cameraBox.border.left,
+      y: this.hitbox.position.y - this.cameraBox.border.top,
     };
   }
 

@@ -2,30 +2,32 @@ import globals from "src/app/objects/globals";
 
 export default {
   drawBackground({ object }) {
-    if (!import.meta.env.VITE_VISUALISE_PLAYER_BLOCKS) {
-      return;
+    if (!!import.meta.env.VITE_VISUALISE_PLAYER_BLOCKS) {
+      globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
+      this.drawRect({object});
     }
+  },
 
-    globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
+  drawHitbox({ object }) {
+    if (!!import.meta.env.VITE_VISUALISE_PLAYER_BLOCKS) {
+      globals.c.fillStyle = "rgba(255, 0, 0, 0.1)";
+      this.drawRect({ object: object.hitbox });
+    }
+  },
+
+  drawCameraBox({ object }) {
+    if (!!import.meta.env.VITE_VISUALISE_PLAYER_CAMERA_BOX) {
+      globals.c.fillStyle = "rgba(0, 0, 255, 0.2)"
+      this.drawRect({ object: object.cameraBox });
+    }
+  },
+
+  drawRect({ object }) {
     globals.c.fillRect(
       object.position.x,
       object.position.y,
       object.width,
       object.height
     );
-  },
-
-  drawHitbox({ object }) {
-    if (!import.meta.env.VITE_VISUALISE_PLAYER_BLOCKS) {
-      return;
-    }
-
-    globals.c.fillStyle = "rgba(255, 0, 0, 0.1)";
-    globals.c.fillRect(
-      object.hitbox.position.x,
-      object.hitbox.position.y,
-      object.hitbox.width,
-      object.hitbox.height
-    );
-  },
+  }
 };
