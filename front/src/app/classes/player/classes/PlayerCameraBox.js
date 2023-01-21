@@ -19,23 +19,42 @@ export default class PlayerCameraBox {
       y: object.hitbox.position.y - this.border.top,
     };
 
-    this.shouldMoveToRight();
-    this.shouldMoveToLeft();
+    this.moveCamera();
   }
 
-  shouldMoveToRight() {
-    const cameraRightPos = this.position.x + this.width;
+  moveCamera() {
+    if (this.needMoveCameraToLeft()) {
+      this.moveCameraToLeft();
+    }
 
-    if (cameraRightPos >= animateVars.scaledCanvas.width) {
-      console.log("move to right");
+    if (this.needMoveCameraToRight()) {
+      this.moveCameraToRight();
+    }
+
+    if (this.needMoveCameraUp()) {
+      console.log("needMoveCameraUp");
     }
   }
 
-  shouldMoveToLeft() {
-    const cameraLeftPos = this.position.x;
-
-    if (cameraLeftPos <= 0) {
-      console.log("move to left");
-    }
+  needMoveCameraToLeft() {
+    return this.position.x <= -animateVars.cameraPos.x;
   }
+
+  moveCameraToLeft() {
+    animateVars.cameraPos.x = -this.position.x;
+  }
+
+  needMoveCameraToRight() {
+    return (
+      this.position.x + this.width >=
+      -animateVars.cameraPos.x + animateVars.scaledCanvas.width
+    );
+  }
+
+  moveCameraToRight() {
+    return (animateVars.cameraPos.x =
+      -this.position.x - this.width + animateVars.scaledCanvas.width);
+  }
+
+  needMoveCameraUp() {}
 }

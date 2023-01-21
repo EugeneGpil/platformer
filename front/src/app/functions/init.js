@@ -11,8 +11,8 @@ export default () => {
   globals.canvas.value.height = 576;
 
   animateVars.scaledCanvas = {
-    width: globals.canvas.value.width / 4,
-    height: globals.canvas.value.height / 4,
+    width: globals.canvas.value.width / animateVars.scale,
+    height: globals.canvas.value.height / animateVars.scale,
   };
 
   globals.c = globals.canvas.value.getContext("2d");
@@ -31,6 +31,10 @@ export default () => {
     },
     imageSrc: "img/background.png",
   });
+
+  animateVars.cameraPos.x = 0;
+  animateVars.cameraPos.y =
+    -animateVars.background.image.height + animateVars.scaledCanvas.height;
 
   animate();
 

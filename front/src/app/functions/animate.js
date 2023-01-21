@@ -16,11 +16,8 @@ const animate = () => {
 
   globals.c.save();
 
-  globals.c.scale(4, 4);
-  globals.c.translate(
-    0,
-    -animateVars.background.image.height + animateVars.scaledCanvas.height
-  );
+  globals.c.scale(animateVars.scale, animateVars.scale);
+  globals.c.translate(animateVars.cameraPos.x, animateVars.cameraPos.y);
 
   animateVars.background.update();
   allCollisions.forEach((groundObj) => groundObj.update());
