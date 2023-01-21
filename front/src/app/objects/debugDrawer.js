@@ -4,7 +4,7 @@ export default {
   drawBackground({ object }) {
     if (!!import.meta.env.VITE_VISUALISE_PLAYER_BLOCKS) {
       globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
-      this.drawRect({object});
+      this.drawRect({ object });
     }
   },
 
@@ -17,7 +17,7 @@ export default {
 
   drawCameraBox({ object }) {
     if (!!import.meta.env.VITE_VISUALISE_PLAYER_CAMERA_BOX) {
-      globals.c.fillStyle = "rgba(0, 0, 255, 0.2)"
+      globals.c.fillStyle = "rgba(0, 0, 255, 0.2)";
       this.drawRect({ object: object.cameraBox });
     }
   },
@@ -29,5 +29,5 @@ export default {
       object.width,
       object.height
     );
-  }
+  },
 };

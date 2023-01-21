@@ -7,11 +7,12 @@ import { animationKeys } from "src/app/classes/player/functions/getInitPlayerAni
 import debugDrawer from "src/app/objects/debugDrawer";
 import checkForVerticalCollisions from "src/app/classes/player/functions/checkForVerticalCollisions";
 import checkForHorizontalCollisions from "src/app/classes/player/functions/checkForHorizontalCollisions";
+import PlayerHitbox from "src/app/classes/player/classes/PlayerHitbox";
+import PlayerCameraBox from "src/app/classes/player/classes/PlayerCameraBox";
 
 export default class Player extends Sprite {
   constructor({ position, scale = 0.5 }) {
     const animations = getInitPlayerAnimations();
-
     const frameBuffer = animations[animationKeys.right.fall].frameBuffer;
     const framesCount = animations[animationKeys.right.fall].framesCount;
     const imageSrc = animations[animationKeys.right.fall].imageSrc;
@@ -19,17 +20,12 @@ export default class Player extends Sprite {
     super({ position, imageSrc, framesCount, frameBuffer, scale });
 
     this.velocity = { x: 0, y: 1 };
-
     this.animations = animations;
-
     this.movementVelocity = 3;
-
     this.direction = "right";
-
     this.isStanding = false;
-
-    this.initHitbox();
-    this.initCameraBox();
+    this.hitbox = new PlayerHitbox({ object: this });
+    this.cameraBox = new PlayerCameraBox({ object: this });
   }
 
   update() {
@@ -42,7 +38,7 @@ export default class Player extends Sprite {
     this.setDirection();
     this.shallUpdateSprite();
     this.updateIsStanding();
-    this.updateCameraBox();
+    this.cameraBox.update({ object: this });
     debugDrawer.drawBackground({ object: this });
     debugDrawer.drawHitbox({ object: this });
     debugDrawer.drawCameraBox({ object: this });
@@ -51,57 +47,12 @@ export default class Player extends Sprite {
   applyGravity() {
     this.position.y += this.velocity.y;
     this.velocity.y += globals.gravity;
-    this.updateHitbox();
-  }
-
-  initHitbox() {
-    this.hitboxOffset = { x: 34, y: 26 };
-
-    this.hitbox = {
-      position: {
-        x: this.position.x + this.hitboxOffset.x,
-        y: this.position.y + this.hitboxOffset.y,
-      },
-      width: 12,
-      height: 27,
-    };
-  }
-
-  updateHitbox() {
-    this.hitbox.position = {
-      x: this.position.x + this.hitboxOffset.x,
-      y: this.position.y + this.hitboxOffset.y,
-    };
-  }
-
-  initCameraBox() {
-    const borderLeft = 75;
-    const borderTop = 40;
-
-    this.cameraBox = {
-      position: {
-        x: this.hitbox.position.x - borderLeft,
-        y: this.hitbox.position.y - borderTop,
-      },
-      width: borderLeft * 2 + this.hitbox.width,
-      height: borderTop * 2 + this.hitbox.height,
-      border: {
-        left: borderLeft,
-        top: borderTop,
-      },
-    }
-  }
-
-  updateCameraBox() {
-    this.cameraBox.position = {
-      x: this.hitbox.position.x - this.cameraBox.border.left,
-      y: this.hitbox.position.y - this.cameraBox.border.top,
-    };
+    this.hitbox.update({ object: this });
   }
 
   applyXVelocity() {
     this.position.x += this.velocity.x;
-    this.updateHitbox();
+    this.hitbox.update({ object: this });
   }
 
   jump() {
@@ -175,11 +126,7 @@ export default class Player extends Sprite {
     return copy.player(this);
   }
 
-  getIsStanding() {
-    return isObjectStanding({ object: this });
-  }
-
   updateIsStanding() {
-    this.isStanding = this.getIsStanding();
+    this.isStanding = isObjectStanding({ object: this });
   }
 }

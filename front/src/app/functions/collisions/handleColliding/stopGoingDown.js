@@ -10,7 +10,7 @@ export default ({ object, collidingObject }) => {
   object.velocity.y = 0;
   object.position.y =
     collidingObject.position.y -
-    object.hitboxOffset.y -
+    object.hitbox.offset.y -
     object.hitbox.height -
     0.01;
 

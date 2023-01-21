@@ -12,7 +12,7 @@ export default ({ object }) => {
       object.velocity.x = 0;
       object.position.x =
         collisionBlock.position.x -
-        (object.hitboxOffset.x + object.hitbox.width) -
+        (object.hitbox.offset.x + object.hitbox.width) -
         0.01;
       return;
     }
@@ -22,7 +22,7 @@ export default ({ object }) => {
       object.position.x =
         collisionBlock.position.x +
         collisionBlock.width -
-        object.hitboxOffset.x +
+        object.hitbox.offset.x +
         0.01;
     }
   }

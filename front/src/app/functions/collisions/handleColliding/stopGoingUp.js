@@ -11,7 +11,7 @@ export default ({ object, collidingObject }) => {
   object.position.y =
     collidingObject.position.y +
     collidingObject.height -
-    object.hitboxOffset.y +
+    object.hitbox.offset.y +
     0.01;
 
   return true;
