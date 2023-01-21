@@ -1,4 +1,4 @@
-export default class PlayerHitbox {
+export default class PlayerBodyHitbox {
   constructor({ object }) {
     this.offset = { x: 34, y: 26 };
     this.width = 12;

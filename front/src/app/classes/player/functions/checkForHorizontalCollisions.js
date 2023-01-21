@@ -3,7 +3,7 @@ import groundArray from "src/app/arrays/collisions/types/groundArray";
 
 export default ({ object }) => {
   const collisionBlock = detectCollisionsWithCollection({
-    object: object.hitbox,
+    object: object.hitboxes.body,
     objectsCollection: groundArray,
   });
 
@@ -12,7 +12,7 @@ export default ({ object }) => {
       object.velocity.x = 0;
       object.position.x =
         collisionBlock.position.x -
-        (object.hitbox.offset.x + object.hitbox.width) -
+        (object.hitboxes.body.offset.x + object.hitboxes.body.width) -
         0.01;
       return;
     }
@@ -22,7 +22,7 @@ export default ({ object }) => {
       object.position.x =
         collisionBlock.position.x +
         collisionBlock.width -
-        object.hitbox.offset.x +
+        object.hitboxes.body.offset.x +
         0.01;
     }
   }

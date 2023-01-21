@@ -7,9 +7,10 @@ import { animationKeys } from "src/app/classes/player/functions/getInitPlayerAni
 import debugDrawer from "src/app/objects/debugDrawer";
 import checkForVerticalCollisions from "src/app/classes/player/functions/checkForVerticalCollisions";
 import checkForHorizontalCollisions from "src/app/classes/player/functions/checkForHorizontalCollisions";
-import PlayerHitbox from "src/app/classes/player/classes/PlayerHitbox";
+import PlayerBodyHitbox from "src/app/classes/player/classes/PlayerBodyHitbox";
 import PlayerCameraBox from "src/app/classes/player/classes/PlayerCameraBox";
 import playerSpriteUpdater from "src/app/classes/player/objects/playerSpriteUpdater";
+import PlayerBottomHitbox from "src/app/classes/player/classes/PlayerBottomHitbox";
 
 export default class Player extends Sprite {
   constructor({ position, scale = 0.5 }) {
@@ -25,7 +26,10 @@ export default class Player extends Sprite {
     this.movementVelocity = 3;
     this.direction = "right";
     this.isStanding = false;
-    this.hitbox = new PlayerHitbox({ object: this });
+    this.hitboxes = {
+      body: new PlayerBodyHitbox({ object: this }),
+    };
+    this.hitboxes.bottom = new PlayerBottomHitbox({ object: this });
     this.cameraBox = new PlayerCameraBox({ object: this });
   }
 
@@ -43,17 +47,23 @@ export default class Player extends Sprite {
     debugDrawer.drawBackground({ object: this });
     debugDrawer.drawHitbox({ object: this });
     debugDrawer.drawCameraBox({ object: this });
+    debugDrawer.drawPlayerPlatformHitbox({ object: this });
   }
 
   applyGravity() {
     this.position.y += this.velocity.y;
     this.velocity.y += globals.gravity;
-    this.hitbox.update({ object: this });
+    this.updateHitboxes();
   }
 
   applyXVelocity() {
     this.position.x += this.velocity.x;
-    this.hitbox.update({ object: this });
+    this.updateHitboxes();
+  }
+
+  updateHitboxes() {
+    this.hitboxes.body.update({ object: this });
+    this.hitboxes.bottom.update({ object: this });
   }
 
   jump() {

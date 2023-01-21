@@ -3,7 +3,7 @@ import groundArray from "src/app/arrays/collisions/types/groundArray";
 
 export default ({ object }) => {
   return detectCollisionsWithCollection({
-    object: object.hitbox,
+    object: object.hitboxes.body,
     objectsCollection: groundArray,
   });
 };

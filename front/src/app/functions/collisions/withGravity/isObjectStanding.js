@@ -1,6 +1,5 @@
-import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisions/base/detectCollisionsWithCollection";
-import groundArray from "src/app/arrays/collisions/types/groundArray";
-import platformArray from "src/app/arrays/collisions/types/platformArray";
+import getCollisionWithGround from "src/app/functions/collisions/detectCollisions/getCollisionWithGround";
+import getCollisionWithPlatform from "src/app/functions/collisions/detectCollisions/getCollisionWithPlatform";
 
 export default ({ object }) => {
   const objectCopy = object.copy();
@@ -8,25 +7,7 @@ export default ({ object }) => {
   objectCopy.applyGravity();
 
   return (
-    isStandingOnGround({ object: objectCopy }) ||
-    isStandingOnPlatform({ object, objectCopy })
+    getCollisionWithGround({ object: objectCopy }) ||
+    getCollisionWithPlatform({ object: objectCopy })
   );
-};
-
-const isStandingOnGround = ({ object }) => {
-  return !!detectCollisionsWithCollection({
-    object: object.hitbox,
-    objectsCollection: groundArray,
-  });
-};
-
-const isStandingOnPlatform = ({ object, objectCopy }) => {
-  if (object.velocity.y < 0) {
-    return false;
-  }
-
-  return !!detectCollisionsWithCollection({
-    object: objectCopy.hitbox,
-    objectsCollection: platformArray,
-  });
 };

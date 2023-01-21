@@ -7,16 +7,16 @@ export default class PlayerCameraBox {
       top: 40,
     };
 
-    this.width = this.border.left * 2 + object.hitbox.width;
-    this.height = this.border.top * 2 + object.hitbox.height;
+    this.width = this.border.left * 2 + object.hitboxes.body.width;
+    this.height = this.border.top * 2 + object.hitboxes.body.height;
 
     this.update({ object });
   }
 
   update({ object }) {
     this.position = {
-      x: object.hitbox.position.x - this.border.left,
-      y: object.hitbox.position.y - this.border.top,
+      x: object.hitboxes.body.position.x - this.border.left,
+      y: object.hitboxes.body.position.y - this.border.top,
     };
 
     this.moveCamera();
