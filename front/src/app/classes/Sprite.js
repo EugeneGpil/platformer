@@ -11,14 +11,12 @@ export default class Sprite {
     this.position = position;
     this.scale = scale;
     this.image = new Image();
+    this.framesCount = framesCount;
     this.image.onload = () => {
-      const framesCount = this.framesCount || framesCount;
-
-      this.width = (this.image.width / framesCount) * this.scale;
+      this.width = (this.image.width / this.framesCount) * this.scale;
       this.height = this.image.height * this.scale;
     };
     this.image.src = imageSrc;
-    this.framesCount = framesCount;
     this.currentFrame = 0;
     this.frameBuffer = frameBuffer;
     this.elapsedFrames = 0;
