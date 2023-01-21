@@ -9,6 +9,7 @@ import checkForVerticalCollisions from "src/app/classes/player/functions/checkFo
 import checkForHorizontalCollisions from "src/app/classes/player/functions/checkForHorizontalCollisions";
 import PlayerHitbox from "src/app/classes/player/classes/PlayerHitbox";
 import PlayerCameraBox from "src/app/classes/player/classes/PlayerCameraBox";
+import playerSpriteUpdater from "src/app/classes/player/objects/playerSpriteUpdater";
 
 export default class Player extends Sprite {
   constructor({ position, scale = 0.5 }) {
@@ -36,7 +37,7 @@ export default class Player extends Sprite {
     this.applyGravity();
     checkForVerticalCollisions({ object: this });
     this.setDirection();
-    this.shallUpdateSprite();
+    playerSpriteUpdater.shallUpdateSprite({ object: this });
     this.updateIsStanding();
     this.cameraBox.update({ object: this });
     debugDrawer.drawBackground({ object: this });
@@ -85,41 +86,6 @@ export default class Player extends Sprite {
     if (this.velocity.x < 0) {
       this.direction = "left";
     }
-  }
-
-  shallUpdateSprite() {
-    if (!this.isStanding && this.velocity.y < 0) {
-      this.switchSprite(animationKeys[this.direction].jump);
-
-      return;
-    }
-
-    if (!this.isStanding && this.velocity.y > 0) {
-      this.switchSprite(animationKeys[this.direction].fall);
-
-      return;
-    }
-
-    if (this.isStanding && this.velocity.x === 0) {
-      this.switchSprite(animationKeys[this.direction].idle);
-
-      return;
-    }
-
-    if (this.isStanding && this.velocity.x !== 0) {
-      this.switchSprite(animationKeys[this.direction].run);
-    }
-  }
-
-  switchSprite(spriteName) {
-    if (this.image === this.animations[spriteName].image) {
-      return;
-    }
-
-    this.image = this.animations[spriteName].image;
-    this.currentFrame = 0;
-    this.frameBuffer = this.animations[spriteName].frameBuffer;
-    this.framesCount = this.animations[spriteName].framesCount;
   }
 
   copy() {
