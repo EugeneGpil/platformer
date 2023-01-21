@@ -6,7 +6,7 @@ export default class {
   }
 
   update({ object }) {
-    this.height = object.velocity.y;
+    this.height = object.velocity.y > 0 ? object.velocity.y : 1;
 
     this.position = {
       x: object.hitboxes.body.position.x,

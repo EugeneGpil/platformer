@@ -32,7 +32,11 @@ export default class PlayerCameraBox {
     }
 
     if (this.needMoveCameraUp()) {
-      console.log("needMoveCameraUp");
+      this.moveCameraUp();
+    }
+
+    if (this.needMoveCameraDown()) {
+      this.moveCameraDown();
     }
   }
 
@@ -52,9 +56,27 @@ export default class PlayerCameraBox {
   }
 
   moveCameraToRight() {
-    return (animateVars.cameraPos.x =
-      -this.position.x - this.width + animateVars.scaledCanvas.width);
+    animateVars.cameraPos.x =
+      -this.position.x - this.width + animateVars.scaledCanvas.width;
   }
 
-  needMoveCameraUp() {}
+  needMoveCameraUp() {
+    return this.position.y <= -animateVars.cameraPos.y;
+  }
+
+  moveCameraUp() {
+    animateVars.cameraPos.y = -this.position.y;
+  }
+
+  needMoveCameraDown() {
+    return (
+      this.position.y + this.height >=
+      -animateVars.cameraPos.y + animateVars.scaledCanvas.height
+    );
+  }
+
+  moveCameraDown() {
+    animateVars.cameraPos.y =
+      -this.position.y - this.height + animateVars.scaledCanvas.height;
+  }
 }
