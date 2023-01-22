@@ -41,7 +41,7 @@ export default class PlayerCameraBox {
   }
 
   needMoveCameraToLeft() {
-    return this.position.x <= -animateVars.cameraPos.x;
+    return this.position.x > 0 && this.position.x <= -animateVars.cameraPos.x;
   }
 
   moveCameraToLeft() {
@@ -50,8 +50,9 @@ export default class PlayerCameraBox {
 
   needMoveCameraToRight() {
     return (
+      this.position.x + this.width < animateVars.background.image.width &&
       this.position.x + this.width >=
-      -animateVars.cameraPos.x + animateVars.scaledCanvas.width
+        -animateVars.cameraPos.x + animateVars.scaledCanvas.width
     );
   }
 
@@ -61,7 +62,7 @@ export default class PlayerCameraBox {
   }
 
   needMoveCameraUp() {
-    return this.position.y <= -animateVars.cameraPos.y;
+    return this.position.y > 0 && this.position.y <= -animateVars.cameraPos.y;
   }
 
   moveCameraUp() {
@@ -70,8 +71,9 @@ export default class PlayerCameraBox {
 
   needMoveCameraDown() {
     return (
+      this.position.y + this.height < animateVars.background.image.height &&
       this.position.y + this.height >=
-      -animateVars.cameraPos.y + animateVars.scaledCanvas.height
+        -animateVars.cameraPos.y + animateVars.scaledCanvas.height
     );
   }
 
