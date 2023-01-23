@@ -1,7 +1,11 @@
-import getCollisionWithGround from "src/app/functions/collisions/detectCollisions/getCollisionWithGround";
+import detectCollisionsWithCollection from "src/app/functions/collisions/detectCollisions/base/detectCollisionsWithCollection";
+import groundArray from "src/app/arrays/collisions/types/groundArray";
 
 export default ({ object }) => {
-  const collisionBlock = getCollisionWithGround({ object });
+  const collisionBlock = detectCollisionsWithCollection({
+    object: object.hitboxes.body,
+    objectsCollection: groundArray,
+  });
 
   if (collisionBlock) {
     if (object.velocity.x > 0) {

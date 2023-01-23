@@ -34,9 +34,7 @@ export default class Player extends Sprite {
   }
 
   update() {
-    debugDrawer.drawBackground({ object: this });
     this.updateFrames();
-    this.updateHitboxes();
     this.draw();
     this.applyXVelocity();
     checkForHorizontalCollisions({ object: this });
@@ -46,6 +44,7 @@ export default class Player extends Sprite {
     playerSpriteUpdater.shallUpdateSprite({ object: this });
     this.updateIsStanding();
     this.cameraBox.update({ object: this });
+    debugDrawer.drawBackground({ object: this });
     debugDrawer.drawHitbox({ object: this });
     debugDrawer.drawCameraBox({ object: this });
     debugDrawer.drawPlayerPlatformHitbox({ object: this });
@@ -54,10 +53,12 @@ export default class Player extends Sprite {
   applyGravity() {
     this.position.y += this.velocity.y;
     this.velocity.y += globals.gravity;
+    this.updateHitboxes();
   }
 
   applyXVelocity() {
     this.position.x += this.velocity.x;
+    this.updateHitboxes();
   }
 
   updateHitboxes() {

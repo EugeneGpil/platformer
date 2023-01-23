@@ -12,7 +12,8 @@ export default class {
       x: object.hitboxes.body.position.x,
       y:
         object.hitboxes.body.position.y +
-        object.hitboxes.body.height
+        object.hitboxes.body.height +
+        this.height,
     };
   }
 }

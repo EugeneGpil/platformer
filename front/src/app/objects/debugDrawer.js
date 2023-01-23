@@ -2,73 +2,31 @@ import globals from "src/app/objects/globals";
 
 export default {
   drawBackground({ object }) {
-    this.drawObj({
-      object,
-      debugKey: 'VITE_VISUALISE_PLAYER_PIC_CROP',
-      color: {
-        red: 0,
-        green: 0,
-        blue: 255,
-        alpha: 0.1,
-      },
-    });
+    if (!!import.meta.env.VITE_VISUALISE_PLAYER_BLOCKS) {
+      globals.c.fillStyle = "rgba(0, 0, 255, 0.1)";
+      this.drawRect({ object });
+    }
   },
 
   drawHitbox({ object }) {
-    this.drawObj({
-      object: object.hitboxes.body,
-      debugKey: 'VITE_VISUALISE_PLAYER_BODY_HITBOX',
-      color: {
-        red: 255,
-        green: 0,
-        blue: 0,
-        alpha: 0.1,
-      },
-    });
+    if (!!import.meta.env.VITE_VISUALISE_PLAYER_BLOCKS) {
+      globals.c.fillStyle = "rgba(255, 0, 0, 0.1)";
+      this.drawRect({ object: object.hitboxes.body });
+    }
   },
 
   drawCameraBox({ object }) {
-    this.drawObj({
-      object: object.cameraBox,
-      debugKey: 'VITE_VISUALISE_PLAYER_CAMERA_BOX',
-      color: {
-        red: 0,
-        green: 0,
-        blue: 255,
-        alpha: 0.2,
-      },
-    });
+    if (!!import.meta.env.VITE_VISUALISE_PLAYER_CAMERA_BOX) {
+      globals.c.fillStyle = "rgba(0, 0, 255, 0.2)";
+      this.drawRect({ object: object.cameraBox });
+    }
   },
 
   drawPlayerPlatformHitbox({ object }) {
-    this.drawObj({
-      object: object.hitboxes.bottom,
-      debugKey: 'VITE_VISUALISE_PLAYER_PLATFORM_HITBOX',
-      color: {
-        red: 0,
-        green: 255,
-        blue: 0,
-        alpha: 0.5,
-      },
-    });
-  },
-
-  drawObj({ object, color, debugKey }) {
-    if (!this.shouldVisualise(debugKey)) {
-      return;
+    if (!!import.meta.env.VITE_VISUALISE_PLAYER_PLATFORM_HITBOX) {
+      globals.c.fillStyle = "rgba(0, 255, 0, 0.5)";
+      this.drawRect({ object: object.hitboxes.bottom });
     }
-
-    this.drawForce({ object, color })
-  },
-
-  drawForce({ object, color }) {
-    globals.c.fillStyle = `rgba(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})`;
-    this.drawRect({ object });
-  },
-
-  shouldVisualise(key) {
-    const visualiseParticular = import.meta.env.VITE_VISUALISE && import.meta.env[key];
-    return import.meta.env.VITE_VISUALISE_EVERYTHING || visualiseParticular;
   },
 
   drawRect({ object }) {

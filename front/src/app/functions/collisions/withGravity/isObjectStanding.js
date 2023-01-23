@@ -5,8 +5,6 @@ export default ({ object }) => {
   const objectCopy = object.copy();
 
   objectCopy.applyGravity();
-  objectCopy.applyXVelocity();
-  objectCopy.updateHitboxes();
 
   return (
     getCollisionWithGround({ object: objectCopy }) ||
