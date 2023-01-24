@@ -4,7 +4,7 @@ export default {
   drawBackground({ object }) {
     this.drawObj({
       object,
-      debugKey: 'VITE_VISUALISE_PLAYER_PIC_CROP',
+      debugKey: "VITE_VISUALISE_PLAYER_PIC_CROP",
       color: {
         red: 0,
         green: 0,
@@ -17,7 +17,7 @@ export default {
   drawHitbox({ object }) {
     this.drawObj({
       object: object.hitboxes.body,
-      debugKey: 'VITE_VISUALISE_PLAYER_BODY_HITBOX',
+      debugKey: "VITE_VISUALISE_PLAYER_BODY_HITBOX",
       color: {
         red: 255,
         green: 0,
@@ -30,7 +30,7 @@ export default {
   drawCameraBox({ object }) {
     this.drawObj({
       object: object.cameraBox,
-      debugKey: 'VITE_VISUALISE_PLAYER_CAMERA_BOX',
+      debugKey: "VITE_VISUALISE_PLAYER_CAMERA_BOX",
       color: {
         red: 0,
         green: 0,
@@ -43,7 +43,7 @@ export default {
   drawPlayerPlatformHitbox({ object }) {
     this.drawObj({
       object: object.hitboxes.bottom,
-      debugKey: 'VITE_VISUALISE_PLAYER_PLATFORM_HITBOX',
+      debugKey: "VITE_VISUALISE_PLAYER_PLATFORM_HITBOX",
       color: {
         red: 0,
         green: 255,
@@ -58,7 +58,7 @@ export default {
       return;
     }
 
-    this.drawForce({ object, color })
+    this.drawForce({ object, color });
   },
 
   drawForce({ object, color }) {
@@ -67,7 +67,8 @@ export default {
   },
 
   shouldVisualise(key) {
-    const visualiseParticular = import.meta.env.VITE_VISUALISE && import.meta.env[key];
+    const visualiseParticular =
+      import.meta.env.VITE_VISUALISE && import.meta.env[key];
     return import.meta.env.VITE_VISUALISE_EVERYTHING || visualiseParticular;
   },
 

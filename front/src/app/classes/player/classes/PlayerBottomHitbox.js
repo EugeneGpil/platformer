@@ -10,9 +10,7 @@ export default class {
 
     this.position = {
       x: object.hitboxes.body.position.x,
-      y:
-        object.hitboxes.body.position.y +
-        object.hitboxes.body.height
+      y: object.hitboxes.body.position.y + object.hitboxes.body.height,
     };
   }
 }

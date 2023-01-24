@@ -2,6 +2,10 @@ import getCollisionWithGround from "src/app/functions/collisions/detectCollision
 import getCollisionWithPlatform from "src/app/functions/collisions/detectCollisions/getCollisionWithPlatform";
 
 export default ({ object }) => {
+  if (object.velocity.y < 0) {
+    return false;
+  }
+
   const objectCopy = object.copy();
 
   objectCopy.applyGravity();
