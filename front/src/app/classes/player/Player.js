@@ -34,6 +34,7 @@ export default class Player extends Sprite {
   }
 
   update() {
+    debugDrawer.drawBackground({ object: this });
     this.updateFrames();
     this.draw();
     this.applyXVelocity();
@@ -44,7 +45,6 @@ export default class Player extends Sprite {
     playerSpriteUpdater.shallUpdateSprite({ object: this });
     this.updateIsStanding();
     this.cameraBox.update({ object: this });
-    debugDrawer.drawBackground({ object: this });
     debugDrawer.drawHitbox({ object: this });
     debugDrawer.drawCameraBox({ object: this });
     debugDrawer.drawPlayerPlatformHitbox({ object: this });
