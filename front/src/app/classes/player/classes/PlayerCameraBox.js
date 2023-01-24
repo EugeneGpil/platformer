@@ -41,24 +41,27 @@ export default class PlayerCameraBox {
   }
 
   needMoveCameraToLeft() {
-    return this.position.x > 0 && this.position.x <= -animateVars.cameraPos.x;
+    return this.position.x <= -animateVars.cameraPos.x;
   }
 
   moveCameraToLeft() {
-    animateVars.cameraPos.x = -this.position.x;
+    animateVars.cameraPos.x = this.position.x > 0 ? -this.position.x : 0;
   }
 
   needMoveCameraToRight() {
     return (
-      this.position.x + this.width < animateVars.background.image.width &&
       this.position.x + this.width >=
-        -animateVars.cameraPos.x + animateVars.scaledCanvas.width
+      -animateVars.cameraPos.x + animateVars.scaledCanvas.width
     );
   }
 
   moveCameraToRight() {
+    const rightCornerOfCameraBox = this.position.x + this.width;
+
     animateVars.cameraPos.x =
-      -this.position.x - this.width + animateVars.scaledCanvas.width;
+      rightCornerOfCameraBox >= animateVars.background.width
+        ? animateVars.scaledCanvas.width - animateVars.background.width
+        : animateVars.scaledCanvas.width - rightCornerOfCameraBox;
   }
 
   needMoveCameraUp() {

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "theMap.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -17,7 +17,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 290.41518752893955,
-                "y": 209.21747183207282
+                "y": 209.51381386016357
             }
         },
         "theMap.json#collision": {
@@ -30,7 +30,7 @@
                 8
             ],
             "scale": 1.5,
-            "selectedLayer": 3,
+            "selectedLayer": 0,
             "viewCenter": {
                 "x": 319.99999999999994,
                 "y": 244.3333333333333
@@ -43,6 +43,8 @@
     "map.tileHeight": 30,
     "map.tileWidth": 35,
     "openFiles": [
+        "theMap.json",
+        "theMap.tmx"
     ],
     "project": "platformer.tiled-project",
     "recentFiles": [
