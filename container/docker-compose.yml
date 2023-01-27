@@ -31,6 +31,7 @@ services:
     restart: unless-stopped
     ports:
       - ${PORT_NGINX_DEV}:80
+      - ${PORT_NGINX_ELECTRON}:81
 
   nginx_prod:
     build:
