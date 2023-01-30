@@ -34,23 +34,23 @@ const framesSettings = {
 
 const animations = {
   [animationKeys.right.idle]: {
-    imageSrc: "/img/warrior/Idle.png",
+    imageSrc: "img/warrior/Idle.png",
     ...framesSettings[animationKeys.right.idle],
   },
   [animationKeys.left.idle]: {
-    imageSrc: "/img/warrior/IdleLeft.png",
+    imageSrc: "img/warrior/IdleLeft.png",
     ...framesSettings[animationKeys.right.idle],
   },
   [animationKeys.right.run]: {
-    imageSrc: "/img/warrior/Run.png",
+    imageSrc: "img/warrior/Run.png",
     ...framesSettings[animationKeys.right.run],
   },
   [animationKeys.left.run]: {
-    imageSrc: "/img/warrior/RunLeft.png",
+    imageSrc: "img/warrior/RunLeft.png",
     ...framesSettings[animationKeys.right.run],
   },
   [animationKeys.right.jump]: {
-    imageSrc: "/img/warrior/Jump.png",
+    imageSrc: "img/warrior/Jump.png",
     ...framesSettings[animationKeys.right.jump],
   },
   [animationKeys.left.jump]: {
@@ -58,11 +58,11 @@ const animations = {
     ...framesSettings[animationKeys.right.jump],
   },
   [animationKeys.right.fall]: {
-    imageSrc: "/img/warrior/Fall.png",
+    imageSrc: "img/warrior/Fall.png",
     ...framesSettings[animationKeys.right.fall],
   },
   [animationKeys.left.fall]: {
-    imageSrc: "/img/warrior/FallLeft.png",
+    imageSrc: "img/warrior/FallLeft.png",
     ...framesSettings[animationKeys.right.fall],
   },
 };
