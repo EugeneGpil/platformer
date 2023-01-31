@@ -10,6 +10,9 @@ export default () => {
   globals.canvas.value.width = 1024;
   globals.canvas.value.height = 576;
 
+  globals.playScreen.value.style.width = globals.canvas.value.width;
+  globals.playScreen.value.style.height = globals.canvas.value.height;
+
   animateVars.scaledCanvas = {
     width: globals.canvas.value.width / animateVars.scale,
     height: globals.canvas.value.height / animateVars.scale,

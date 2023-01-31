@@ -1,7 +1,15 @@
 <template>
   <q-page class="flex flex-center bg-grey-10">
-    <canvas ref="canvas" />
-    <button @click="toggleFullScreen.toggle">FULLSCREEN</button>
+    <div class="play-screen" ref="playScreen">
+      <canvas class="background" ref="canvas" />
+      <q-btn
+        class="fullscreen-button"
+        color="secondary"
+        :icon="fullScreen.isActive() ? 'fullscreen_exit' : 'fullscreen'"
+        @click="toggleFullScreen"
+      >
+      </q-btn>
+    </div>
   </q-page>
 </template>
 
@@ -13,10 +21,27 @@ import init from "src/app/functions/init";
 const canvas = ref(null);
 globals.canvas = canvas;
 
-import { useToggleFullScreen } from "src/composables/useToggleFullScreen";
-const toggleFullScreen = useToggleFullScreen();
+const playScreen = ref(null);
+globals.playScreen = playScreen;
+
+import { useFullScreen } from "src/composables/useFullScreen";
+const fullScreen = useFullScreen();
+const toggleFullScreen = () => fullScreen.toggle(playScreen);
 
 onMounted(() => {
   init();
 });
 </script>
+
+<style lang="scss" scoped>
+.fullscreen-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 200;
+}
+.background {
+  width: 100%;
+  height: 100%;
+}
+</style>

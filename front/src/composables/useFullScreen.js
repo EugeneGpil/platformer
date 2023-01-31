@@ -1,23 +1,23 @@
 import { useQuasar } from "quasar";
 
-let isFullScreen = false;
-
-export function useToggleFullScreen() {
+export function useFullScreen() {
   const $q = useQuasar();
 
   return {
-    async toggle() {
-      if (isFullScreen) {
+    async toggle(target) {
+      if ($q.fullscreen.isActive) {
         await $q.fullscreen.exit();
-        isFullScreen = false;
         document.activeElement.blur();
 
         return;
       }
 
-      await $q.fullscreen.request();
-      isFullScreen = true;
+      await $q.fullscreen.request(target.value);
       document.activeElement.blur();
+    },
+
+    isActive() {
+      return $q.fullscreen.isActive;
     },
   };
 }
