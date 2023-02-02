@@ -11,6 +11,7 @@ export default class PlayerCameraBox {
     this.height = this.border.top * 2 + object.hitboxes.body.height;
 
     this.update({ object });
+    this.addWindowSizeChangedListener();
   }
 
   update({ object }) {
@@ -83,5 +84,11 @@ export default class PlayerCameraBox {
   moveCameraDown() {
     animateVars.cameraPos.y =
       -this.position.y - this.height + animateVars.scaledCanvas.height;
+  }
+
+  addWindowSizeChangedListener() {
+    addEventListener("resize", () => {
+      this.moveCamera();
+    });
   }
 }

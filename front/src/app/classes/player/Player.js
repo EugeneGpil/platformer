@@ -31,6 +31,7 @@ export default class Player extends Sprite {
     };
     this.hitboxes.bottom = new PlayerBottomHitbox({ object: this });
     this.cameraBox = new PlayerCameraBox({ object: this });
+
   }
 
   update() {

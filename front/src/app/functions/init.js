@@ -1,25 +1,14 @@
 import globals from "src/app/objects/globals";
 import Player from "src/app/classes/player/Player";
 import Sprite from "src/app/classes/Sprite";
-import addKeydownEventListener from "src/app/functions/keyboard/addKeydownEventListener";
-import addKeyupEventListener from "src/app/functions/keyboard/addKeyupEventListener";
 import animate from "src/app/functions/animate";
 import animateVars from "src/app/objects/animateVars";
+import addKeyboardEventListeners from "src/app/functions/keyboard/addKeyboardEventListeners";
+import addWindowSizeChangedEventListener from "src/app/functions/window/addWindowSizeChangedEventListener";
+import setSizes from "src/app/functions/window/setSizes";
 
 export default () => {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  globals.canvas.value.width = width;
-  globals.canvas.value.height = height;
-
-  globals.playScreen.value.style.width = globals.canvas.value.width;
-  globals.playScreen.value.style.height = globals.canvas.value.height;
-
-  animateVars.scaledCanvas = {
-    width: globals.canvas.value.width / animateVars.scale,
-    height: globals.canvas.value.height / animateVars.scale,
-  };
+  setSizes();
 
   globals.c = globals.canvas.value.getContext("2d");
 
@@ -44,6 +33,6 @@ export default () => {
 
   animate();
 
-  addKeydownEventListener(window);
-  addKeyupEventListener(window);
+  addKeyboardEventListeners();
+  addWindowSizeChangedEventListener();
 };
