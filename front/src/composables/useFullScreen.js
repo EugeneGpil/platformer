@@ -3,9 +3,9 @@
 // works only by pushing button, not in onMounted() and so on
 
 import { useQuasar } from "quasar";
-import unfocus from "src/app/functions/helpers/unfocus";
+import unfocus from "src/composables/helpers/useUnfocus";
 
-export function useFullScreen() {
+export const useFullScreen = () => {
   const $q = useQuasar();
 
   return {
@@ -25,4 +25,4 @@ export function useFullScreen() {
       return $q.fullscreen.isActive;
     },
   };
-}
+};

@@ -3,9 +3,14 @@
     <div class="play-screen" ref="playScreen">
       <canvas class="background" ref="canvas" />
       <div class="buttons-container">
-        <q-btn dense flat icon="minimize" @click="minimize" />
-        <q-btn dense flat icon="crop_square" @click="toggleMaximize" />
-        <q-btn dense flat icon="close" @click="closeApp" />
+        <q-btn dense flat icon="minimize" @click="windowActions.minimize" />
+        <q-btn
+          dense
+          flat
+          icon="crop_square"
+          @click="windowActions.toggleMaximize"
+        />
+        <q-btn dense flat icon="close" @click="windowActions.closeApp" />
       </div>
     </div>
   </q-page>
@@ -15,7 +20,7 @@
 import { ref, onMounted } from "vue";
 import globals from "src/app/objects/globals";
 import init from "src/app/functions/init";
-import unfocus from "src/app/functions/helpers/unfocus";
+import { useWindowActions } from "src/composables/useWindowActions";
 
 const canvas = ref(null);
 globals.canvas = canvas;
@@ -23,26 +28,7 @@ globals.canvas = canvas;
 const playScreen = ref(null);
 globals.playScreen = playScreen;
 
-const minimize = () => {
-  if (process.env.MODE === "electron") {
-    window.myWindowAPI.minimize();
-    unfocus();
-  }
-};
-
-const toggleMaximize = () => {
-  if (process.env.MODE === "electron") {
-    window.myWindowAPI.toggleMaximize();
-    unfocus();
-  }
-};
-
-const closeApp = () => {
-  if (process.env.MODE === "electron") {
-    window.myWindowAPI.close();
-    unfocus();
-  }
-};
+const windowActions = useWindowActions();
 
 onMounted(() => {
   init();
