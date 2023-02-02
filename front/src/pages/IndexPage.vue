@@ -3,12 +3,6 @@
     <div class="play-screen" ref="playScreen">
       <canvas class="background" ref="canvas" />
       <div class="buttons-container">
-        <q-btn
-          color="secondary"
-          :icon="fullScreen.isActive() ? 'fullscreen_exit' : 'fullscreen'"
-          @click="toggleFullScreen"
-        >
-        </q-btn>
         <q-btn dense flat icon="minimize" @click="minimize" />
         <q-btn dense flat icon="crop_square" @click="toggleMaximize" />
         <q-btn dense flat icon="close" @click="closeApp" />
@@ -21,6 +15,7 @@
 import { ref, onMounted } from "vue";
 import globals from "src/app/objects/globals";
 import init from "src/app/functions/init";
+import unfocus from "src/app/functions/helpers/unfocus";
 
 const canvas = ref(null);
 globals.canvas = canvas;
@@ -28,26 +23,24 @@ globals.canvas = canvas;
 const playScreen = ref(null);
 globals.playScreen = playScreen;
 
-import { useFullScreen } from "src/composables/useFullScreen";
-
-const fullScreen = useFullScreen();
-const toggleFullScreen = () => fullScreen.toggle(playScreen);
-
 const minimize = () => {
   if (process.env.MODE === "electron") {
     window.myWindowAPI.minimize();
+    unfocus();
   }
 };
 
 const toggleMaximize = () => {
   if (process.env.MODE === "electron") {
     window.myWindowAPI.toggleMaximize();
+    unfocus();
   }
 };
 
 const closeApp = () => {
   if (process.env.MODE === "electron") {
     window.myWindowAPI.close();
+    unfocus();
   }
 };
 

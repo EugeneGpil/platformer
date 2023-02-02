@@ -7,8 +7,11 @@ import animate from "src/app/functions/animate";
 import animateVars from "src/app/objects/animateVars";
 
 export default () => {
-  globals.canvas.value.width = 1024;
-  globals.canvas.value.height = 576;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  globals.canvas.value.width = width;
+  globals.canvas.value.height = height;
 
   globals.playScreen.value.style.width = globals.canvas.value.width;
   globals.playScreen.value.style.height = globals.canvas.value.height;
