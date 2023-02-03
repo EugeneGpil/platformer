@@ -15,4 +15,4 @@ export default () => {
     width: globals.canvas.value.width / animateVars.scale,
     height: globals.canvas.value.height / animateVars.scale,
   };
-}
+};

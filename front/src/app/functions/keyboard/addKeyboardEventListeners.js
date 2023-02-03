@@ -4,4 +4,4 @@ import addKeyupEventListener from "src/app/functions/keyboard/EventListeners/add
 export default () => {
   addKeydownEventListener(window);
   addKeyupEventListener(window);
-}
+};

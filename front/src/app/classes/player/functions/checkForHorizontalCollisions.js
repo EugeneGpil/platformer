@@ -11,7 +11,8 @@ const handleEdgeOfTheMapCollision = ({ object }) => {
 
   if (
     object.hitboxes.body.position.x + object.hitboxes.body.width >
-    animateVars.background.image.width
+      animateVars.background.image.width &&
+    animateVars.background.image.width !== 0
   ) {
     object.velocity.x = 0;
     object.position.x =
