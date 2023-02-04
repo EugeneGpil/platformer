@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center bg-grey-10">
+  <q-page class="flex flex-center bg-grey-10 q-electron-drag">
     <div class="play-screen" ref="playScreen">
       <canvas class="background" ref="canvas" />
       <div class="buttons-container">
