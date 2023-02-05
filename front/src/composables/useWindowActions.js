@@ -1,4 +1,5 @@
 import { useUnfocus } from "src/composables/helpers/useUnfocus";
+import { useFullScreen } from "src/composables/useFullScreen";
 
 export const useWindowActions = () => {
   const unfocus = useUnfocus();
@@ -9,9 +10,21 @@ export const useWindowActions = () => {
     };
   };
 
+  const fullScreen = useFullScreen();
+
   return {
     minimize: getFunction(window.myWindowAPI?.minimize),
-    toggleMaximize: getFunction(window.myWindowAPI?.toggleMaximize),
+    toggleMaximize: () => {
+      if (fullScreen.isActive()) {
+        fullScreen.toggle()
+        getFunction(window.myWindowAPI?.toggleMaximize)()
+
+        return
+      }
+
+      getFunction(window.myWindowAPI?.toggleMaximize)()
+      fullScreen.toggle()
+    },
     closeApp: getFunction(window.myWindowAPI?.close),
   };
 };
