@@ -16,14 +16,14 @@ export const useWindowActions = () => {
     minimize: getFunction(window.myWindowAPI?.minimize),
     toggleMaximize: () => {
       if (fullScreen.isActive()) {
-        fullScreen.toggle()
-        getFunction(window.myWindowAPI?.toggleMaximize)()
+        fullScreen.toggle();
+        getFunction(window.myWindowAPI?.toggleMaximize)();
 
-        return
+        return;
       }
 
-      getFunction(window.myWindowAPI?.toggleMaximize)()
-      fullScreen.toggle()
+      getFunction(window.myWindowAPI?.toggleMaximize)();
+      fullScreen.toggle();
     },
     closeApp: getFunction(window.myWindowAPI?.close),
   };

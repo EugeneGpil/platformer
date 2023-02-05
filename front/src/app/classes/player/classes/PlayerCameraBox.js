@@ -74,11 +74,16 @@ export default class PlayerCameraBox {
   }
 
   needMoveCameraDown() {
-    return (
+    const byPlayerMovement =
       this.position.y + this.height < animateVars.background.image.height &&
       this.position.y + this.height >=
-        -animateVars.cameraPos.y + animateVars.scaledCanvas.height
-    );
+        -animateVars.cameraPos.y + animateVars.scaledCanvas.height;
+
+    const byScreenSizeChanged =
+      -animateVars.cameraPos.y + animateVars.scaledCanvas.height >
+      animateVars.background.height;
+
+    return byPlayerMovement || byScreenSizeChanged;
   }
 
   moveCameraDown() {

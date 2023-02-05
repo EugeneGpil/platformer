@@ -3,14 +3,26 @@
     <div class="play-screen" ref="playScreen">
       <canvas class="background" ref="canvas" />
       <div class="buttons-container">
-        <q-btn dense flat icon="minimize" @click="windowActions.minimize" />
+        <q-btn
+          class="electron-only"
+          dense
+          flat
+          icon="minimize"
+          @click="windowActions.minimize"
+        />
         <q-btn
           dense
           flat
           icon="crop_square"
           @click="windowActions.toggleMaximize"
         />
-        <q-btn dense flat icon="close" @click="windowActions.closeApp" />
+        <q-btn
+          class="electron-only"
+          dense
+          flat
+          icon="close"
+          @click="windowActions.closeApp"
+        />
       </div>
     </div>
   </q-page>
