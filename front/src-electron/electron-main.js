@@ -57,6 +57,11 @@ function createWindow() {
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
+
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show();
+    mainWindow.removeMenu();
+  });
 }
 
 app.whenReady().then(createWindow);
