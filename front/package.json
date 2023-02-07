@@ -12,12 +12,16 @@
     "dev": "quasar dev",
     "electron": "quasar build -m electron",
     "electron-debug": "quasar build -m electron --debug",
-    "build-pwa": "quasar build -m pwa"
+    "build-pwa": "quasar build -m pwa",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "@electron/remote": "^2.0.9",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
+    "electron-squirrel-startup": "^1.0.0",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
@@ -25,11 +29,15 @@
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
     "@quasar/app-vite": "^1.0.0",
     "autoprefixer": "^10.4.2",
     "electron": "^22.1.0",
-    "electron-packager": "^15.5.2",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
