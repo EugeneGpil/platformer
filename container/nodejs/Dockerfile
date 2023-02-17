@@ -42,3 +42,71 @@ RUN echo "\n\
 #installing quasar
 USER app
 RUN	npm install -g @quasar/cli
+
+#Chromium deps to build electron
+USER root
+RUN apt-get install\
+      lib32z1\
+      libasound2\
+      libatk1.0-0\
+      libatspi2.0-0\
+      libc6\
+      libcairo2\
+      libcap2\
+      libcgi-session-perl\
+      libcups2\
+      libdrm2\
+      libegl1\
+      libevdev2\
+      libexpat1\
+      libfontconfig1\
+      libfreetype6\
+      libgbm1\
+      libglib2.0-0\
+      libgl1\
+      libgtk-3-0\
+      libpam0g\
+      libpango-1.0-0\
+      libpangocairo-1.0-0\
+      libpci3\
+      libpcre3\
+      libpixman-1-0\
+      libspeechd2\
+      libstdc++6\
+      libsqlite3-0\
+      libuuid1\
+      libwayland-egl1\
+      libwayland-egl1-mesa\
+      libx11-6\
+      libx11-xcb1\
+      libxau6\
+      libxcb1\
+      libxcomposite1\
+      libxcursor1\
+      libxdamage1\
+      libxdmcp6\
+      libxext6\
+      libxfixes3\
+      libxi6\
+      libxinerama1\
+      libxrandr2\
+      libxrender1\
+      libxtst6\
+      x11-utils\
+      xvfb\
+      zlib1g\
+      libffi8\
+      libpulse0\
+      libbz2-1.0\
+      libpng16-16\
+      libnspr4\
+      libnss3\
+      libvulkan1\
+      libinput10 -y
+
+#more packages to build electron
+RUN apt-get install rpm fakeroot -y
+
+#enable user namespaces for electron-forge
+USER root
+RUN echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/00-local-userns.conf

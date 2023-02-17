@@ -13,9 +13,8 @@
     "electron": "quasar build -m electron",
     "electron-debug": "quasar build -m electron --debug",
     "build-pwa": "quasar build -m pwa",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "forge-package": "electron-forge package",
+    "forge-make": "electron-forge make"
   },
   "dependencies": {
     "@electron/remote": "^2.0.9",
@@ -38,6 +37,7 @@
     "@quasar/app-vite": "^1.0.0",
     "autoprefixer": "^10.4.2",
     "electron": "^22.1.0",
+    "electron-packager": "^15.5.2",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
@@ -48,5 +48,7 @@
     "node": "^18 || ^16 || ^14.19",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
-  }
+  },
+  "main": "./dist/electron/UnPackaged/electron-main.js",
+  "license": "MIT"
 }

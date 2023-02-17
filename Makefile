@@ -11,3 +11,7 @@ root-node:
 
 stop:
 	cd container && docker compose stop
+
+fix-perms:
+	sudo chown root:root front/node_modules/electron/dist/chrome-sandbox &&\
+	sudo chmod 4755 front/node_modules/electron/dist/chrome-sandbox
