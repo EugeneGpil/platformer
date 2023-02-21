@@ -3,6 +3,11 @@ start:
 	docker compose up --build --remove-orphans --detach &&\
 	docker compose exec nodejs bash
 
+start-node:
+	cd container &&\
+	docker compose up nodejs --build --remove-orphans --detach &&\
+	docker compose exec nodejs bash
+
 node:
 	cd container && docker compose exec nodejs bash
 

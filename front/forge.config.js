@@ -1,5 +1,8 @@
 module.exports = {
-  packagerConfig: {},
+  packagerConfig: {
+    // 'asar: true' is required to make installer for windows in minutes, not in hours
+    asar: true,
+  },
   rebuildConfig: {},
   makers: [
     {
