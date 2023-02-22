@@ -18,7 +18,12 @@ RUN groupadd -g ${ID_GROUP} app &&\
     apt-get install rpm fakeroot -y &&\
     \
     echo "installing wine, mono-complete to build electron forge for windows\n" &&\
-    apt-get install wine mono-complete -y
+    apt-get install wine mono-complete -y &&\
+    \
+    echo "installing wine32 too to build electron forge for windows\n" &&\
+    dpkg --add-architecture i386 &&\
+    apt-get update &&\
+    apt-get install wine32 -y
 
 #install nodejs via nvm
 #add nvm.sh to .bashrc for app user
@@ -42,6 +47,6 @@ RUN echo "\n\
         source /home/app/.nvm/nvm.sh\n\
     " >> ~/.bashrc
 
-#installing quasar
+#installing quasar. Installing cordova to build mobile apps
 USER app
-RUN	npm install -g @quasar/cli
+RUN	npm install -g @quasar/cli cordova
