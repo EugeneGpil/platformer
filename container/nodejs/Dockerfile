@@ -12,7 +12,7 @@ RUN groupadd -g ${ID_GROUP} app &&\
     apt-get update &&\
     \
     echo "installing common dependencies\n" &&\
-    apt-get install curl nano git -y &&\
+    apt-get install curl nano git software-properties-common -y &&\
     \
     echo "installing rpm, fakeroot to build electron forge\n" &&\
     apt-get install rpm fakeroot -y &&\
@@ -38,7 +38,6 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | b
     " >> ~/.bashrc
 
 #add path var node, now can use npm
-ARG NODE_VERSION=16.17.0
 ENV PATH /home/app/.nvm/versions/node/v${NODE_VERSION}/bin:${PATH}
 
 #add nvm.sh to .bashrc for root user
@@ -50,3 +49,11 @@ RUN echo "\n\
 #installing quasar. Installing cordova to build mobile apps
 USER app
 RUN	npm install -g @quasar/cli cordova
+
+#USER root
+#RUN
+#    mkdir /opt/android-sdk &&\
+#    cd /opt/android-sdk &&\
+#    curl --output sdk-tools-linux.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip &&\
+#    unzip sdk-tools-linux.zip &&\
+#    echo -ne "y" | ./tools/bin/sdkmanager --install 'build-tools;29.0.2' 'platform-tools' 'platforms;android-29' 'tools'

@@ -14,7 +14,8 @@
     "electron-debug": "quasar build -m electron --debug",
     "build-pwa": "quasar build -m pwa",
     "forge": "electron-forge make --arch x64",
-    "forge-win": "electron-forge make --platform win32 --arch x64"
+    "forge-win": "electron-forge make --platform win32 --arch x64",
+    "cordova": "quasar build -m android"
   },
   "dependencies": {
     "@electron/remote": "^2.0.9",
