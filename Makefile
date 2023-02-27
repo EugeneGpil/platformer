@@ -1,31 +1,50 @@
+define FUNC
+    cd container &&\
+	cp base/nginx/* nginx_dev/ &&\
+	cp base/nginx/* nginx_prod/ &&\
+	cp base/nginx/* nginx_electron/ &&\
+	cp base/nodejs/* nodejs_web &&\
+	cp base/nodejs/* nodejs_electron &&\
+	cp base/nodejs/* nodejs_cordova
+endef
+
 start-dev:
-	cd container &&\
-	cp base/nginx/run.sh nginx_dev/ &&\
-	docker compose up nodejs nginx_dev --build --remove-orphans --detach &&\
+	$(call FUNC) &&\
+	docker compose up nodejs_web nginx_dev --build --remove-orphans --detach &&\
+	docker compose exec nodejs_web bash
+
+start-electron::
+	$(call FUNC) &&\
+	docker compose up nodejs_electron nginx_electron --build --remove-orphans --detach &&\
+	docker compose exec nodejs_electron bash
+
+start-electron::
+	$(call FUNC) &&\
+	docker compose up nodejs_cordova --build --remove-orphans --detach &&\
+	docker compose exec nodejs_cordova bash
+
+start-prod::
+	$(call FUNC) &&\
+	docker compose up nodejs_web nginx_prod --build --remove-orphans --detach &&\
 	docker compose exec nodejs bash
 
-start-electron:
-	cd container &&\
-	cp base/nginx/run.sh nginx_electron/ &&\
-	docker compose up nodejs nginx_electron --build --remove-orphans --detach &&\
-	docker compose exec nodejs bash
+node-web:
+	cd container && docker compose exec nodejs_web bash
 
-start-prod:
-	cd container &&\
-	cp base/nginx/run.sh nginx_prod/ &&\
-	docker compose up nodejs nginx_prod --build --remove-orphans --detach &&\
-	docker compose exec nodejs bash
+root-node-web:
+	cd container && docker compose exec --user=root nodejs_web bash
 
-start-node:
-	cd container &&\
-	docker compose up nodejs --build --remove-orphans --detach &&\
-	docker compose exec nodejs bash
+node-electron:
+	cd container && docker compose exec nodejs_electron bash
 
-node:
-	cd container && docker compose exec nodejs bash
+root-node-electron:
+	cd container && docker compose exec --user=root nodejs_electron bash
 
-root-node:
-	cd container && docker compose exec --user=root nodejs bash
+node-cordova:
+	cd container && docker compose exec nodejs_cordova bash
+
+root-node-cordova:
+	cd container && docker compose exec --user=root nodejs_cordova bash
 
 stop:
 	cd container && docker compose stop
