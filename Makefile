@@ -18,7 +18,7 @@ start-electron::
 	docker compose up nodejs_electron nginx_electron --build --remove-orphans --detach &&\
 	docker compose exec nodejs_electron bash
 
-start-electron::
+start-cordova::
 	$(call FUNC) &&\
 	docker compose up nodejs_cordova --build --remove-orphans --detach &&\
 	docker compose exec nodejs_cordova bash
