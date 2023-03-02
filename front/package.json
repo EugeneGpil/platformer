@@ -36,6 +36,7 @@
     "@electron-forge/maker-zip": "^6.0.5",
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
     "@quasar/app-vite": "^1.0.0",
+    "@vue/devtools": "^6.5.0",
     "autoprefixer": "^10.4.2",
     "electron": "^22.1.0",
     "electron-packager": "^15.5.2",
@@ -50,9 +51,7 @@
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   },
-
   "//this main to build electron. Probably need to modify or remove for another platforms": "",
   "main": "./dist/electron/UnPackaged/electron-main.js",
-
   "license": "MIT"
 }

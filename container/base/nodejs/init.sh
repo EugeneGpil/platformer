@@ -16,9 +16,7 @@ echo "installing common dependencies\n" &&\
     apt-get install curl nano git software-properties-common -y &&\
 \
 echo "adding nvm.sh to .bashrc to run nvm every login. It will set up nodejs version" &&\
-    echo "\n\
-        source /home/app/.nvm/nvm.sh\n\
-    " >> ~/.bashrc &&\
+    echo "source /home/app/.nvm/nvm.sh" >> ~/.bashrc &&\
 \
 echo "Setting up HOME dir for app user. All remaining commands are running under that user" &&\
     export HOME=/home/app &&\
@@ -44,9 +42,7 @@ echo "installing node, npm, quasar"
     " -m app &&\
 \
 echo 'adding nvm.sh to .bashrc to run it every login. It set up nodejs version' &&\
-    echo "\
-        source /home/app/.nvm/nvm.sh\
-    " >> /home/app/.bashrc &&\
+    echo "source /home/app/.nvm/nvm.sh" >> /home/app/.bashrc &&\
 \
 echo "Don't forget to set HOME dir back" &&\
     export HOME=/root
