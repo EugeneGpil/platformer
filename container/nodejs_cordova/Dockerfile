@@ -10,6 +10,8 @@ RUN chmod +x init.sh && ./init.sh ${ID_USER} ${ID_GROUP} ${NODE_VERSION}
 
 USER app
 ARG NODE_VERSION=16.17.0
+ARG BUILD_TOOLS_VER=30.0.3
+ARG GRADLE_VER=7.4.2
 #workdir for nvm to work properly
 WORKDIR /usr/app
 RUN echo "making nvm command available. Need nvm to make npm available" &&\
@@ -42,31 +44,34 @@ RUN apt-get install openjdk-11-jdk wget unzip -y &&\
     mv cmdline-tools latest &&\
     \
     echo "set ENV vars for Dockerfile to be able to use sdkmanager now" &&\
-    export ANDROID_HOME=/home/app/commandlinetools/cmdline-tools &&\
+    export ANDROID_HOME=/home/app/commandlinetools &&\
     export ANDROID_SDK_ROOT=$ANDROID_HOME &&\
-    export PATH=$PATH:$ANDROID_HOME/latest/bin &&\
-    \
-    echo "requirements for cordova v10" &&\
-    echo "requirements: https://cordova.apache.org/docs/en/11.x/guide/platforms/android/" &&\
-    echo "also command 'cordova requirements' in 'front/src-cordova' folder of project shows some requirements" &&\
-    sdkmanager "platform-tools" &&\
-    sdkmanager "platforms;android-22" &&\
-    sdkmanager "build-tools;30.0.3" &&\
+    export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin &&\
     \
     echo "accept licenses" &&\
     yes | sdkmanager --licenses &&\
     \
-    echo "installing gradle. For build-tools v30 required gradle v7.4" &&\
+    echo "requirements for cordova v10" &&\
+    echo "requirements: https://cordova.apache.org/docs/en/11.x/guide/platforms/android/" &&\
+    echo "also command 'cordova requirements' in 'front/src-cordova' folder of project shows some requirements" &&\
+    yes | sdkmanager "platform-tools" "platforms;android-22" "build-tools;${BUILD_TOOLS_VER}" &&\
+    \
+    echo "installing gradle" &&\
     echo "what version to install: https://developer.android.com/studio/releases/gradle-plugin.html" &&\
     echo "gradle releases: https://gradle.org/releases/" &&\
     cd /home/app &&\
-    wget https://services.gradle.org/distributions/gradle-7.4.2-all.zip &&\
-    unzip gradle-7.4.2-all.zip -d gradle &&\
+    wget https://services.gradle.org/distributions/gradle-${GRADLE_VER}-all.zip &&\
+    unzip gradle-${GRADLE_VER}-all.zip -d gradle &&\
     cd gradle
 
-
 #setting ENV to use sdkmanager after starting
-ENV ANDROID_HOME=/home/app/commandlinetools/cmdline-tools
+ENV ANDROID_HOME=/home/app/commandlinetools
 ENV ANDROID_SDK_ROOT=$ANDROID_HOME
-ENV GRADLE_HOME=/home/app/gradle/gradle-7.4.2/bin
-ENV PATH=$PATH:$ANDROID_HOME/latest/bin:$GRADLE_HOME
+ENV GRADLE_HOME=/home/app/gradle/gradle-${GRADLE_VER}/bin
+ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+ENV PATH=$PATH:$GRADLE_HOME
+ENV PATH=$PATH:$ANDROID_HOME/tools/bin
+ENV PATH=$PATH:$ANDROID_HOME/build-tools/${BUILD_TOOLS_VER}
+ENV PATH=$PATH:$ANDROID_HOME/platform-tools
+ENV PATH=$PATH:$ANDROID_HOME/emulator
+ENV PATH=$PATH:$ANDROID_HOME/tools
