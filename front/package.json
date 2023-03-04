@@ -15,7 +15,12 @@
     "build-pwa": "quasar build -m pwa",
     "forge": "electron-forge make --arch x64",
     "forge-win": "electron-forge make --platform win32 --arch x64",
-    "cordova": "quasar build -m android"
+
+    "//building and signing apk": "",
+    "cordova": "quasar build -m android -- -- --packageType=apk",
+    "create-apk-key": "keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 20000",
+    "zipalign": "zipalign -v 4 dist/cordova/android/apk/release/app-release-unsigned.apk dist/cordova/android/apk/release/app-release-signed.apk",
+    "apksigner": "apksigner sign --ks my-release-key.keystore --ks-key-alias alias_name dist/cordova/android/apk/release/app-release-signed.apk"
   },
   "dependencies": {
     "@electron/remote": "^2.0.9",

@@ -31,3 +31,5 @@ yarn-error.log*
 .env
 
 out/
+
+my-release-key.keystore

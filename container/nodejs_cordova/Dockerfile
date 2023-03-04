@@ -6,7 +6,8 @@ ARG ID_USER=1000
 ARG ID_GROUP=1000
 ARG NODE_VERSION=16.17.0
 COPY init.sh init.sh
-RUN chmod +x init.sh && ./init.sh ${ID_USER} ${ID_GROUP} ${NODE_VERSION}
+RUN chmod +x init.sh && ./init.sh ${ID_USER} ${ID_GROUP} ${NODE_VERSION} &&\
+    apt-get install openjdk-11-jdk wget unzip -y
 
 USER app
 ARG NODE_VERSION=16.17.0
@@ -22,10 +23,7 @@ RUN echo "making nvm command available. Need nvm to make npm available" &&\
     echo "setting up nodejs version. Now can use npm" &&\
         nvm use ${NODE_VERSION} &&\
     \
-    npm install -g cordova
-
-USER root
-RUN apt-get install openjdk-11-jdk wget unzip -y &&\
+    npm install -g cordova &&\
     \
     echo "Get last commandlinetools in bottom of page https://developer.android.com/studio/index.html" &&\
     wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip &&\
@@ -68,10 +66,4 @@ RUN apt-get install openjdk-11-jdk wget unzip -y &&\
 ENV ANDROID_HOME=/home/app/commandlinetools
 ENV ANDROID_SDK_ROOT=$ANDROID_HOME
 ENV GRADLE_HOME=/home/app/gradle/gradle-${GRADLE_VER}/bin
-ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
-ENV PATH=$PATH:$GRADLE_HOME
-ENV PATH=$PATH:$ANDROID_HOME/tools/bin
-ENV PATH=$PATH:$ANDROID_HOME/build-tools/${BUILD_TOOLS_VER}
-ENV PATH=$PATH:$ANDROID_HOME/platform-tools
-ENV PATH=$PATH:$ANDROID_HOME/emulator
-ENV PATH=$PATH:$ANDROID_HOME/tools
+ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$GRADLE_HOME:$ANDROID_HOME/tools/bin:$ANDROID_HOME/build-tools/${BUILD_TOOLS_VER}:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools
