@@ -11,6 +11,7 @@
           @click="windowActions.minimize"
         />
         <q-btn
+          class="desktop-only"
           dense
           flat
           icon="crop_square"
@@ -29,6 +30,10 @@
 </template>
 
 <script setup>
+if (typeof AndroidFullScreen !== 'undefined') {
+  AndroidFullScreen.immersiveMode()
+}
+
 import { ref, onMounted } from "vue";
 import globals from "src/app/objects/globals";
 import init from "src/app/functions/init";
