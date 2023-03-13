@@ -70,7 +70,7 @@ export default class Player extends Sprite {
 
   shallJump() {
     if (false /*should jump*/) {
-      this.jump()
+      this.jump();
     }
   }
 

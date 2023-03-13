@@ -15,7 +15,6 @@
     "build-pwa": "quasar build -m pwa",
     "forge": "electron-forge make --arch x64",
     "forge-win": "electron-forge make --platform win32 --arch x64",
-
     "//building and signing apk": "",
     "cordova": "quasar build -m android -- -- --packageType=apk",
     "create-apk-key": "keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 20000",

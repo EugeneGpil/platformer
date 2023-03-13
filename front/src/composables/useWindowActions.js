@@ -15,12 +15,12 @@ export const useWindowActions = () => {
   return {
     minimize: getFunction(window.myWindowAPI?.minimize),
     toggleMaximize: () => {
-      console.log('toggleMaximize')
+      console.log("toggleMaximize");
 
-      if (typeof AndroidFullScreen !== 'undefined') {
-        AndroidFullScreen.immersiveMode()
+      if (typeof AndroidFullScreen !== "undefined") {
+        AndroidFullScreen.immersiveMode();
 
-        return
+        return;
       }
 
       if (fullScreen.isActive()) {

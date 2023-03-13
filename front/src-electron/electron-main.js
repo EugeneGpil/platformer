@@ -58,7 +58,7 @@ function createWindow() {
     mainWindow = null;
   });
 
-  mainWindow.on('ready-to-show', () => {
+  mainWindow.on("ready-to-show", () => {
     mainWindow.show();
     mainWindow.removeMenu();
   });

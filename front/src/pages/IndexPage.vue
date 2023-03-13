@@ -30,8 +30,8 @@
 </template>
 
 <script setup>
-if (typeof AndroidFullScreen !== 'undefined') {
-  AndroidFullScreen.immersiveMode()
+if (typeof AndroidFullScreen !== "undefined") {
+  AndroidFullScreen.immersiveMode();
 }
 
 import { ref, onMounted } from "vue";
