@@ -4,6 +4,7 @@ import Sprite from "src/app/classes/Sprite";
 import animate from "src/app/functions/animate";
 import animateVars from "src/app/objects/animateVars";
 import addKeyboardEventListeners from "src/app/functions/keyboard/addKeyboardEventListeners";
+import addTouchEventListeners from "src/app/functions/touchpad/addTouchEventListeners";
 import addWindowSizeChangedEventListener from "src/app/functions/window/addWindowSizeChangedEventListener";
 import setSizes from "src/app/functions/window/setSizes";
 
@@ -35,4 +36,5 @@ export default () => {
 
   addKeyboardEventListeners();
   addWindowSizeChangedEventListener();
+  addTouchEventListeners();
 };

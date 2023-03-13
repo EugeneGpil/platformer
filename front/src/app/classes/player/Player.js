@@ -48,6 +48,8 @@ export default class Player extends Sprite {
     debugDrawer.drawHitbox({ object: this });
     debugDrawer.drawCameraBox({ object: this });
     debugDrawer.drawPlayerPlatformHitbox({ object: this });
+
+    this.shallJump();
   }
 
   applyGravity() {
@@ -64,6 +66,12 @@ export default class Player extends Sprite {
   updateHitboxes() {
     this.hitboxes.body.update({ object: this });
     this.hitboxes.bottom.update({ object: this });
+  }
+
+  shallJump() {
+    if (false /*should jump*/) {
+      this.jump()
+    }
   }
 
   jump() {
