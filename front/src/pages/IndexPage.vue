@@ -1,5 +1,8 @@
 <template>
-  <q-page class="flex flex-center bg-grey-10 q-electron-drag">
+  <q-page
+    class="flex flex-center bg-grey-10 q-electron-drag"
+    :style-fn="setMinHeightZero"
+  >
     <div class="play-screen" ref="playScreen">
       <canvas class="background" ref="canvas" />
       <div class="buttons-container">
@@ -30,6 +33,10 @@
 </template>
 
 <script setup>
+const setMinHeightZero = () => ({
+  minHeight: 0,
+});
+
 if (typeof AndroidFullScreen !== "undefined") {
   AndroidFullScreen.immersiveMode();
 }
