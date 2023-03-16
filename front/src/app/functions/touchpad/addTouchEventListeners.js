@@ -3,7 +3,7 @@ import addTouchMoveEventListener from "src/app/functions/touchpad/eventListeners
 import addTouchEndEventListener from "src/app/functions/touchpad/eventListeners/addTouchEndEventListener";
 
 export default () => {
-  addTouchStartEventListener()
-  addTouchMoveEventListener()
-  addTouchEndEventListener()
+  addTouchStartEventListener();
+  addTouchMoveEventListener();
+  addTouchEndEventListener();
 };

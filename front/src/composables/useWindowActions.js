@@ -15,7 +15,6 @@ export const useWindowActions = () => {
   return {
     minimize: getFunction(window.myWindowAPI?.minimize),
     toggleMaximize: () => {
-
       if (typeof AndroidFullScreen !== "undefined") {
         AndroidFullScreen.immersiveMode();
 
