@@ -1,7 +1,7 @@
-import addKeydownEventListener from "src/app/functions/keyboard/EventListeners/addKeydownEventListener";
-import addKeyupEventListener from "src/app/functions/keyboard/EventListeners/addKeyupEventListener";
+import addKeydownEventListener from "src/app/functions/keyboard/eventListeners/addKeydownEventListener";
+import addKeyupEventListener from "src/app/functions/keyboard/eventListeners/addKeyupEventListener";
 
 export default () => {
-  addKeydownEventListener(window);
-  addKeyupEventListener(window);
+  addKeydownEventListener();
+  addKeyupEventListener();
 };

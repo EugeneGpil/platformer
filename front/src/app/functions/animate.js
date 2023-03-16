@@ -2,6 +2,7 @@ import globals from "src/app/objects/globals";
 import allCollisions from "src/app/arrays/collisions/allCollisions";
 import reactOnKeyboard from "src/app/functions/keyboard/reactOnKeyboard";
 import animateVars from "src/app/objects/animateVars";
+import reactOnTouch from "src/app/functions/touchpad/reactOnTouch";
 
 const animate = () => {
   window.requestAnimationFrame(animate);
@@ -25,6 +26,7 @@ const animate = () => {
   globals.player.update();
 
   reactOnKeyboard();
+  reactOnTouch();
 
   globals.c.restore();
 };

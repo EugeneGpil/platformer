@@ -1,6 +1,6 @@
 import globals from "src/app/objects/globals";
 
-export default (window) => {
+export default () => {
   window.addEventListener("keyup", (event) => {
     switch (event.code) {
       case "KeyD":

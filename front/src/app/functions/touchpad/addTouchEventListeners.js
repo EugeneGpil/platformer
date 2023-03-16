@@ -1,8 +1,9 @@
+import addTouchStartEventListener from "src/app/functions/touchpad/eventListeners/addTouchStartEventListener";
+import addTouchMoveEventListener from "src/app/functions/touchpad/eventListeners/addTouchMoveEventListener";
+import addTouchEndEventListener from "src/app/functions/touchpad/eventListeners/addTouchEndEventListener";
+
 export default () => {
-  document.addEventListener("touchstart", () => {
-    console.log("touchstart");
-  });
-  document.addEventListener("touchmove", () => {});
-  document.addEventListener("touchend", () => {});
-  document.addEventListener("touchcancel", () => {});
+  addTouchStartEventListener()
+  addTouchMoveEventListener()
+  addTouchEndEventListener()
 };

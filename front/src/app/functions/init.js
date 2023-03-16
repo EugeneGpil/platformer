@@ -35,6 +35,7 @@ export default () => {
   animate();
 
   addKeyboardEventListeners();
-  addWindowSizeChangedEventListener();
   addTouchEventListeners();
+
+  addWindowSizeChangedEventListener();
 };
