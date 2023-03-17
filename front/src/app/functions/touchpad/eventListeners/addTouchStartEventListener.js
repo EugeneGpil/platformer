@@ -6,6 +6,7 @@ const touchController = globals.touch_controller;
 export default () => {
   document.addEventListener("touchstart", (e) => {
     touchController.was_touch_detected = true;
+    touchController.is_pressing = true;
 
     touchHelper.runIfFirstTouch(e, (e) => {
       if (touchController.is_just_unpressed) {
@@ -15,7 +16,6 @@ export default () => {
         return;
       }
 
-      touchController.is_pressing = true;
       const touch = e.changedTouches[0];
       touchController.position = {
         x: touch.pageX,
